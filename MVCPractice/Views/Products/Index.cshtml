@@ -7,7 +7,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Index</h2>
-@using (Html.BeginForm("Index","Products",FormMethod.Get))
+@using (Ajax.BeginForm("Index","Products",
+    new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "ProductsTable",
+        InsertionMode = InsertionMode.Replace
+    }))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -18,7 +24,7 @@
     @Html.ActionLink("Create New Product", "Create")
 </p>
 
-<table class="table">
+<table class="table" id="ProductsTable">
     <tr>
         <th>
             @Html.ActionLink("Name ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter });
@@ -57,7 +63,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+  @foreach (var item in Model)
     {
         using (Html.BeginForm("Delete", "Products", new { id = item.ProductID }))
         {
@@ -105,8 +111,6 @@
     }
 
 </table>
-
-
 
 <<br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

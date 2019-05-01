@@ -10,9 +10,10 @@ namespace MVCPractice
         {
             bundles.Add(new ScriptBundle("~/bundles/adventureworks").Include(
                                "~/Scripts/jquery-{version}.js",
-                               "~/Scripts/jquery.validate*",
-                               "~/Scripts/jquery.unobtrusive-ajax.js",
-                               "~/Scripts/jquery.unobtrusive-ajax.min.js"
+                               "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
+                             
+                               "~/Scripts/jquery.unobtrusive-ajax.min*"
                               ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
