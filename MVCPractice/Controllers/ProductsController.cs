@@ -33,7 +33,7 @@ namespace MVCPractice.Controllers
            
            
                 var search = string.IsNullOrEmpty(searchString) ? "" : searchString;
-            var Products = context.Products
+                var Products = context.Products
                      .Include("ProductCategory")
                       .Include("ProductModel").AsParallel<Product>()
                       .Where(s => s.Name.Contains(search));

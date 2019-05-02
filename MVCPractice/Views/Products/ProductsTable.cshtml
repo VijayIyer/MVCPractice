@@ -1,0 +1,131 @@
+﻿@model PagedList.IPagedList<MVCPractice.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+
+    Layout = null;
+
+}
+  <script>
+      $(document).ready(function () {
+          $(".signal").css('visibility','hidden');
+          $(".pagination li:not(.active) a").click(function () {
+              
+              var options =
+                  {
+                      url: $(this).attr("href"),
+                      type: "GET"
+                  };
+              $.ajax(options).done(function (data) {
+                  $("#ProductsTable").html(data);
+              });
+              return false;
+          });
+      });
+
+      $(document).ajaxStart(function () {
+          $("#ProductsTable").css('visibility','hidden');
+          $(".signal").css('visibility','visible');
+      });
+      $(document).ajaxComplete(function () {
+          $("#ProductsTable").css('visibility','visible');
+          $(".signal").css('visibility', 'hidden');
+      });
+
+  </script>
+<div class="signal"></div>
+<div id="ProductsTable">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Name ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter });
+            </th>
+            <th>
+                Product Number
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Standard Cost
+            </th>
+            <th>
+                List Price
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Weight
+            </th>
+            <th>
+                @Html.ActionLink("Sell Start Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                End Date
+            </th>
+
+            <th>
+                Category Name
+            </th>
+            <th>
+                Model Name
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("Delete", "Products", new { id = item.ProductID }))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StandardCost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellEndDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductCategory.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductModel.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+                        <input type="submit" value="Delete" style="background:none; border-width:0px; color:blue; text-decoration:underline;" onclick="return confirm('Are you sure you want to delete Product with Id = @item.ProductID')" />
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+ 
+    <<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
