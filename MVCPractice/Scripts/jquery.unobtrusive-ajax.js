@@ -1,4 +1,5 @@
-﻿// Unobtrusive Ajax support library for jQuery
+﻿//
+//Unobtrusive Ajax support library for jQuery
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // @version <placeholder>
@@ -122,7 +123,7 @@
         // add the input file that were not previously included in the serializeArray()
         // set processData and contentType to false
         var $element = $(element);
-        if ($element.is("form") && $element.attr("enctype") == "multipart/form-data") {
+        if ($element.is("form") && $element.attr("enctype") === "multipart/form-data") {
             var formdata = new FormData();
             $.each(options.data, function (i, v) {
                 formdata.append(v.name, v.value);

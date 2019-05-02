@@ -10,10 +10,16 @@ namespace MVCPractice
         {
             bundles.Add(new ScriptBundle("~/bundles/adventureworks").Include(
                                "~/Scripts/jquery-{version}.js",
-                               "~/Scripts/jquery.validate*"));
+                               "~/Scripts/jquery-ui.js",
+                              
+                               "~/Scripts/jquery.validate*",
+                                "~/Scripts/jquery.unobtrusive-ajax.js"
+                               
+                               
+                               ));
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
-                             
-                               "~/Scripts/jquery.unobtrusive-ajax.min*"
+                               "~/Scripts/jquery.unobtrusive-ajax*",
+                               "~/Scripts/jquery.unobtrusive-ajax*"
                               ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -33,7 +39,8 @@ namespace MVCPractice
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/wait.css"));
         }
     }
 }

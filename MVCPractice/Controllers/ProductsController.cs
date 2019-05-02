@@ -12,7 +12,7 @@ namespace MVCPractice.Controllers
     {
         private AdventureWorksEntities context = new AdventureWorksEntities();
 
-        [OutputCache(Duration = 60,Location =System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 200,Location =System.Web.UI.OutputCacheLocation.Client,VaryByParam ="page")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page,string filterstring)
         {
             int pageSize = 10;
@@ -53,8 +53,12 @@ namespace MVCPractice.Controllers
                         Products = Products.OrderBy(s => s.Name);
                         break;
                 }
-            
             int pageNumber = (page ?? 1);
+            if (Request.IsAjaxRequest())
+            {
+                return View("ProductsTable", Products.ToPagedList(pageNumber, pageSize));
+            }
+            
             return View(Products.ToPagedList(pageNumber, pageSize));
         }
         [OutputCache(Duration = 300,Location =System.Web.UI.OutputCacheLocation.Client)]
@@ -67,7 +71,7 @@ namespace MVCPractice.Controllers
                                                             , "ProductCategoryId", "Name");
                 ViewBag.ProductModelId = new SelectList(context.ProductModels.ToList(), "ProductModelId", "Name");
                 ViewBag.Colors = new SelectList(context.Products.Where(a => a.Color != null).Select(a => a.Color).Distinct().ToList());
-
+           
         return View();
         }
         [HttpPost]
