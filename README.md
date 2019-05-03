@@ -10,3 +10,4 @@
 #### 2.Adding Service Layer and Repository Layer.
 #### 3.Adding View Models for the various views when Controller is sufficiently complex. In products view , ViewBag is used.
 #### 4.Async Partial Views - if there is large data for single item , then load it partially quickly , then continue to load after full web page is loaded. For eg.  - in products list view , each product could be spinning widget, where thumbnail photo(not yet shown in view) could be loaded asynchronously), while all records are loaded.
+#### 5.Making all the Views for one of the Controllers Asynchronous by loading partial views into the Layout view - better User experience. 
