@@ -18,7 +18,16 @@ namespace MVCPractice.Controllers
         // GET: Addresses
         public async Task<ActionResult> Index()
         {
-            return View(await db.Addresses.ToListAsync());
+            return PartialView(await db.Addresses.ToListAsync());
+        }
+        public ActionResult Shared(string ViewName)
+        {
+            if (string.IsNullOrEmpty(ViewName))
+            {
+                ViewName = "Index";
+            }
+            ViewBag.ViewName = ViewName;
+            return View("Shared");
         }
 
         // GET: Addresses/Details/5

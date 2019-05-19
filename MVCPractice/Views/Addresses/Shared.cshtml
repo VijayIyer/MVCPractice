@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Address> 
+
+@{
+    ViewBag.Title = "Shared";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script>
+        $(document).ready(function ()
+        {
+            var Options =
+                {
+                    url: "/Addresses/" + "@ViewBag.ViewName",
+                    type: "GET"
+                };
+            $.ajax(Options).done(function(data)
+            {
+            
+                $("#DynamicView").html(data);
+            
+            });
+            $(document).ajaxStart(function () {
+                $("#ProductsTable").css('visibility', 'hidden');
+                $(".signal").css('visibility', 'visible');
+            });
+            $(document).ajaxComplete(function () {
+                $("#ProductsTable").css('visibility', 'visible');
+                $(".signal").css('visibility', 'hidden');
+            });
+        });
+      </script>
+</head>
+<div class="signal"></div>
+<div id="DynamicView">
+</div>
+
+
+

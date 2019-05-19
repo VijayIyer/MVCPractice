@@ -33,7 +33,7 @@ namespace MVCPractice
         [CustomProductValidations("*")]
         [RegularExpression("^[^@!*#()&]*$", ErrorMessage = "Entered Product Name not in correct format")]
         [Display(Name ="Product Name")]
-      //  [Unique("Name",ErrorMessage ="The Product Name should be unique")]
+      // [Unique("Name",ErrorMessage ="The Product Name should be unique")]
         public string Name { get; set; }
         [Required(ErrorMessage ="Please do not leave Product Number Empty")]
         [RegularExpression("^[a-z|A-Z]{2}-[a-zA-Z]\\w{3}-\\d{2}", ErrorMessage ="Entered Product Number not in correct format")]

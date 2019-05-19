@@ -254,6 +254,8 @@
     <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Delete.ico" />
+    <Content Include="Content\Edit.ico" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\wait.css" />
     <Content Include="favicon.ico" />
@@ -316,6 +318,8 @@
     <Content Include="Views\Addresses\Index.cshtml" />
     <Content Include="Views\Addresses\CreateView.cshtml" />
     <Content Include="Views\Products\ProductsTable.cshtml" />
+    <Content Include="Views\Customers\CustomersTable.cshtml" />
+    <Content Include="Views\Addresses\Shared.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

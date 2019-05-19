@@ -8,6 +8,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVCPractice;
+using PagedList;
+//using System.Linq;
+//using System.Data.Entity;
+//using System.Collections.Generic;
+//using System;
 
 namespace MVCPractice.Controllers
 {
@@ -16,9 +21,19 @@ namespace MVCPractice.Controllers
         private AdventureWorksEntities db = new AdventureWorksEntities();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(int? pagesize,int? pagenumber)
         {
-            return View(db.Customers.ToList());
+            int page = pagesize ?? 10;
+            int pageno = pagenumber ?? 1;
+            
+            ViewBag.CustomerCount = pageno;
+           
+            if (Request.IsAjaxRequest())
+            {
+                
+                return PartialView("CustomersTable",db.Customers.Take(page).ToList());
+            }
+            return View(db.Customers.Take(page).ToList());
         }
 
         // GET: Customers/Details/5

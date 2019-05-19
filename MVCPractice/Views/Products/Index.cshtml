@@ -6,11 +6,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>Index</h2>
 @using (Ajax.BeginForm("Index","Products",
     new AjaxOptions
     {
-        HttpMethod = "POST",
+        HttpMethod = "GET",
         UpdateTargetId = "ProductsTable",
         InsertionMode = InsertionMode.Replace
     }))

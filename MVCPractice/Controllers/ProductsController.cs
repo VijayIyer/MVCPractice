@@ -30,15 +30,12 @@ namespace MVCPractice.Controllers
             ViewBag.Filter = filterstring;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-           
-           
-                var search = string.IsNullOrEmpty(searchString) ? "" : searchString;
+            var search = string.IsNullOrEmpty(searchString) ? "" : searchString;
                 var Products = context.Products
                      .Include("ProductCategory")
                       .Include("ProductModel").AsParallel<Product>()
                       .Where(s => s.Name.Contains(search));
-                              
-                switch (sortOrder)
+            switch (sortOrder)
                 {
                     case "name_desc":
                         Products = Products.OrderByDescending(s => s.Name);
@@ -65,14 +62,41 @@ namespace MVCPractice.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.ProductCategoryId = new SelectList((from c in context.ProductCategories
+               ViewBag.ProductCategoryId = new SelectList((from c in context.ProductCategories
                                                         where c.ParentProductCategoryID == null
                                                         select c).ToList()
                                                             , "ProductCategoryId", "Name");
-                ViewBag.ProductModelId = new SelectList(context.ProductModels.ToList(), "ProductModelId", "Name");
+
+           
+
+            ViewBag.ProductModelId = new SelectList(context.ProductModels.ToList(), "ProductModelId", "Name");
                 ViewBag.Colors = new SelectList(context.Products.Where(a => a.Color != null).Select(a => a.Color).Distinct().ToList());
            
         return View();
+        }
+        [HttpGet]
+        public ActionResult GetSubCategory(int SelectedProductCategory)
+        {
+            var SubCategory = from p in context.ProductCategories
+                              where p.ParentProductCategoryID == SelectedProductCategory
+                              select new
+                              {
+                                  Id = p.ProductCategoryID,
+                                  Name = p.Name
+                              };
+
+            return Json(SubCategory.ToList(),JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetProductCategories(string SelectedCountry)
+        {
+            var SelectParentCategoryId = context.ProductCategories.Where(a => a.Name == SelectedCountry).Select(a => a.ProductCategoryID).First();
+            IEnumerable<SelectListItem> ProductCategories = new SelectList((from c in context.ProductCategories
+                                                                            where c.ParentProductCategoryID == SelectParentCategoryId
+                                                                            select c)
+                                                            , "ProductCategoryId", "Name");
+
+            return Json(ProductCategories.ToList(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         [ActionName("Create")]
@@ -103,6 +127,16 @@ namespace MVCPractice.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
+            ViewBag.ProductCategoryId = new SelectList((from c in context.ProductCategories
+                                                        where c.ParentProductCategoryID == null
+                                                        select c).ToList()
+                                                        , "ProductCategoryId", "Name");
+
+
+
+            ViewBag.ProductModelId = new SelectList(context.ProductModels.ToList(), "ProductModelId", "Name");
+            ViewBag.Colors = new SelectList(context.Products.Where(a => a.Color != null).Select(a => a.Color).Distinct().ToList());
+
             Product requiredproduct = new Product();
             requiredproduct = context.Products.Find(Id);
             return View(requiredproduct);

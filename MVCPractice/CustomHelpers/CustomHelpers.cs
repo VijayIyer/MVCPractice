@@ -13,6 +13,7 @@ namespace MVCPractice.CustomHelpers
            //create the datalist tags
             TagBuilder dl = new TagBuilder("datalist");
             dl.Attributes.Add("id",name);
+          //  dl.Attributes.Add("class","form-control");
             //create options List
            
             List<string> options = new List<string>();
@@ -31,5 +32,13 @@ namespace MVCPractice.CustomHelpers
             dl.InnerHtml = joineditems;
             return new MvcHtmlString(dl.ToString());
         }
- }
+
+
+        public static HtmlString NumberControl(this HtmlHelper htmlHelper)
+        {
+            return new MvcHtmlString("<label>No. of Records</label><form><input type=\"number\"  name = \"numbertextctrl\" step = \"1\"></ form >");
+        }
+
+
+    }
 }
