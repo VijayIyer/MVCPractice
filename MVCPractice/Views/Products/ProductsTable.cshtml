@@ -7,8 +7,12 @@
 
 }
   <script>
+      var filterindex = 0;
       $(document).ready(function () {
-          $(".signal").css('visibility','hidden');
+
+         
+         
+       $(".signal").css('visibility','hidden');
           $(".pagination li:not(.active) a").click(function () {
               
               var options =
@@ -21,31 +25,47 @@
               });
               return false;
           });
-      });
+          $(document).ajaxStart(function () {
+              $("#ProductsTable").css('visibility','hidden');
+              $(".signal").css('visibility','visible');
+          });
+          $(document).ajaxComplete(function () {
+              $("#ProductsTable").css('visibility','visible');
+              $(".signal").css('visibility', 'hidden');
+      
+          });
 
-      $(document).ajaxStart(function () {
-          $("#ProductsTable").css('visibility','hidden');
-          $(".signal").css('visibility','visible');
-      });
-      $(document).ajaxComplete(function () {
-          $("#ProductsTable").css('visibility','visible');
-          $(".signal").css('visibility', 'hidden');
-      });
+         
+              $("#dialog").dialog({
+                  autoOpen: false,
+                  closeOnEscape: true,
+                  draggable: true,
+                  title: "Filter Box"
+              });
+
+
+     });
 
   </script>
+<link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div class="signal"></div>
 <div id="ProductsTable">
-    <table class="table">
+    <table class="table" id="AddressTable">
         <tr>
-            <th>
-                @Html.ActionLink("Name ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter });
+            <th data-filterclause="" data-filtervalue="">
+              <span>@Html.ActionLink("Name ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter });</span>
+               <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>  
             </th>
-            <th>
+            <th data-filterclause="" data-filtervalue="">
              <span>Product Number</span>
-             
+                <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span> 
             </th>
-            <th>
-                Color
+            <th data-filterclause="" data-filtervalue="">
+                <span>Color</span>
+                <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span> 
             </th>
             <th>
                 Standard Cost

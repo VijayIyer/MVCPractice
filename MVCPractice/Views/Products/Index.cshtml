@@ -1,7 +1,19 @@
 ﻿@model PagedList.IPagedList<MVCPractice.Product>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script>
+   
+</script>
 <script src="~/ColumnFilters.js"></script>
+<style>
+    span i.glyphicon.glyphicon-filter {
+        visibility: hidden;
+    }
+
+    span:hover i.glyphicon.glyphicon-filter {
+        visibility: visible !important;
+    }
+</style>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,6 +36,26 @@
 <p>
     @Html.ActionLink("Create New Product", "Create")
 </p>
+<form id="dialog" style="background-color:gainsboro" class="table-bordered">
+    <select id="filterclause">
+        <option selected>Equals</option>
+        <option>Contains</option>
+        <option>Does not Contain</option>
+        <option>Not Equal to</option>
+    </select>
+    <div>
+        <label for="FirstBox">Field 1</label>
+        <input id="FirstBox" />
+    </div>
+
+    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+
+    <div>
+        <button class="btn btn-primary" id="ApplyFilter">Apply Filter</button>
+        <button class="btn btn-primary" id="ClearFilter">Clear Filter</button>
+    </div>
+</form>
+
 @{Html.RenderPartial("ProductsTable");}
 
 @section Scripts

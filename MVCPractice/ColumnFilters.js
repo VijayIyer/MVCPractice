@@ -1,11 +1,6 @@
 ﻿var filterindex = 0;
 $(document).ready(function () {
-    $("#dialog").dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        draggable: true,
-        title: "Filter Box"
-    });
+   
     $(".glyphicon-filter").click(function (e) {
         filterindex = $(event.target).closest('th').index();
 

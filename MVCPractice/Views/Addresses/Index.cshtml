@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<MVCPractice.Address>
 
+<script src="~/ColumnFilters.js"></script>
 <h2>Index</h2>
-<script>
-    $(document).ready(function(){
+
+@*<script>
+    $(document).ready(function () {
 
 
         $(".glyphicon.glyphicon-filter").click(function (e) {
@@ -100,12 +102,11 @@
             $("th:eq(" + filterindex + ")").data("filtervalue", "");
             FilterAddressTable();
         });
- });
+    });
 
-    
+
+</script>*@ 
    
-</script>
-
 <p>
     @Html.ActionLink("Create New","Create")
 </p>
