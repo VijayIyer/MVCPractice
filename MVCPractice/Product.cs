@@ -37,7 +37,7 @@ namespace MVCPractice
         public string Name { get; set; }
         [Required(ErrorMessage ="Please do not leave Product Number Empty")]
         [RegularExpression("^[a-z|A-Z]{2}-[a-zA-Z]\\w{3}-\\d{2}", ErrorMessage ="Entered Product Number not in correct format")]
-       // [Unique("ProductNumber",ErrorMessage ="Product Number should be unique")]
+        [Unique("ProductNumber",ErrorMessage ="Product Number should be unique")]
         public string ProductNumber { get; set; }
         [DisplayFormat(NullDisplayText = "Multi")]
         public string Color { get; set; }
@@ -56,6 +56,7 @@ namespace MVCPractice
         public Nullable<System.DateTime> SellEndDate { get; set; }
         public Nullable<System.DateTime> DiscontinuedDate { get; set; }
         public byte[] ThumbNailPhoto { get; set; }
+        [RegularExpression(".*.(jpg|png|gif|bmp)$", ErrorMessage ="File is not of correct format")]
         public string ThumbnailPhotoFileName { get; set; }
         public System.Guid rowguid { get; set; }
         public System.DateTime ModifiedDate { get; set; }

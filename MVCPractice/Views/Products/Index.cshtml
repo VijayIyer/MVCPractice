@@ -1,14 +1,14 @@
 ﻿@model PagedList.IPagedList<MVCPractice.Product>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
+<script src="~/ColumnFilters.js"></script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
-@using (Ajax.BeginForm("Index","Products",
+@using (Ajax.BeginForm("Index", "Products",
     new AjaxOptions
     {
         HttpMethod = "GET",
@@ -24,7 +24,7 @@
 <p>
     @Html.ActionLink("Create New Product", "Create")
 </p>
-@Html.Partial("ProductsTable")
+@{Html.RenderPartial("ProductsTable");}
 
 @section Scripts
        {

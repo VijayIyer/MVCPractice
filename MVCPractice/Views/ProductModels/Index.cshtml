@@ -1,11 +1,60 @@
-﻿@model IEnumerable<MVCPractice.Address>
+﻿@model IEnumerable<MVCPractice.ProductModel>
 
-<h2>Index</h2>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="Scripts/jquery-1.10.2.js"></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/jquery-ui.js"></script>
+<script src="Scripts/jquery-ui.min.js"></script>
+<script src="Scripts/bootstrap.js"></script>
+<script src="Scripts/bootstrap.min.js"></script>
+
+<link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="ColumnFilters.js"></script>
+
+<style>
+    span i.glyphicon.glyphicon-filter {
+        visibility: hidden;
+    }
+
+    span:hover i.glyphicon.glyphicon-filter {
+        visibility: visible !important;
+    }
+</style>
+
 <script>
-    $(document).ready(function(){
+    var filterindex = 0;
+    $(document).ready(function () {
+        $(".partialcontents").each(function () {
 
+           
+            var  url =  $(this).attr("data-url");
+            var data = $(this).attr("data-name");
+            url = url;
+           
+            
+            $.ajax({
+                url: url,
+                data: { 'Id' : data },
+                type: "get",
+                success: function (data) {
+                    $(".partialcontents").first().replaceWith(data);
+                }
 
-        $(".glyphicon.glyphicon-filter").click(function (e) {
+            });
+        });
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            closeOnEscape: true,
+            draggable: true,
+            title: "Filter Box"
+        });
+        $(".glyphicon-filter").click(function (e) {
             filterindex = $(event.target).closest('th').index();
 
             $("#dialog #filterclause").val($("th:eq(" + filterindex + ")").data("filterclause"));
@@ -100,81 +149,35 @@
             $("th:eq(" + filterindex + ")").data("filtervalue", "");
             FilterAddressTable();
         });
- });
-
-    
-   
+    });
 </script>
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New","Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
-<div id="CreateView">
-<table class="table" id="AddressTable">
+<table class="table">
     <tr>
         <th data-filterclause="" data-filtervalue="">
-            <span>  @Html.DisplayNameFor(model => model.AddressLine1)</span>
-            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-        </th>
-        <th data-filterclause="" data-filtervalue="">
-            <span> @Html.DisplayNameFor(model => model.AddressLine2)</span>
-            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-        </th>
-        <th data-filterclause="" data-filtervalue="">
-           <span>@Html.DisplayNameFor(model => model.City)</span> 
-            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StateProvince)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CountryRegion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.rowguid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </th>
-        <th></th>
-    </tr>
+            <span>@Html.DisplayNameFor(model => model.Name)</span>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLine1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLine2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StateProvince)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CountryRegion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rowguid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>
-        <td>
-            @Ajax.ActionLink("Edit", "Edit", new { id=item.AddressID },new AjaxOptions {UpdateTargetId = "DynamicView",InsertionMode = InsertionMode.ReplaceWith}) |
-            @Ajax.ActionLink("Details", "Details", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith } ) |
-            @Ajax.ActionLink("Delete", "Delete", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith })
-        </td>
+            <span style="float:right"><i class="glyphicon glyphicon-filter"><span></span></i></span>
+        </th>
     </tr>
-}
+      
 
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><div class="partialcontents" data-url="/ProductModels/Single" data-name="@item.ProductModelID" style="font-style:italic;visibility:hidden"></div></td>
+            <td>
+                @Html.ActionLink("Edit","Edit") |
+                @Html.ActionLink("Details", "Details") |
+                @Html.ActionLink("Delete", "Delete")
+            </td>
+            
+           
+        </tr>
+    }
 </table>
-</div>
+

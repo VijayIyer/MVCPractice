@@ -38,17 +38,23 @@ namespace MVCPractice.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Address address = await db.Addresses.FindAsync(id);
-            
+
             if (address == null)
             {
                 return HttpNotFound();
             }
+            if(Request.IsAjaxRequest())
+            { return PartialView(address); }
             return View(address);
         }
 
         // GET: Addresses/Create
         public ActionResult Create()
         {
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView();
+            }
             return View();
         }
 
@@ -81,6 +87,10 @@ namespace MVCPractice.Controllers
             {
                 return HttpNotFound();
             }
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(address);
+            }
             return View(address);
         }
 
@@ -97,6 +107,7 @@ namespace MVCPractice.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+           
             return View(address);
         }
 
