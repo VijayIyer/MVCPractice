@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Web.Mvc;
 namespace MVCPractice
+ 
 {
     public partial class Product
     {
-        public class CustomProductValidationsAttribute : ValidationAttribute
+        public class CustomProductValidationsAttribute : ValidationAttribute,IClientValidatable
         {
             public CustomProductValidationsAttribute(string inputstring) : base("{0} cannot contain * in input string")
             {
@@ -23,13 +26,25 @@ namespace MVCPractice
                 }
                 return ValidationResult.Success;
             }
+
+            public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+            {
+                var rule = new ModelClientValidationRule();
+                rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
+                rule.ValidationParameters.Add("inputstring", _inputstring);
+                rule.ValidationType = "custom";
+                yield return rule;
+            }
+
             private readonly string _inputstring;
         }
         public class UniqueAttribute : ValidationAttribute
         {
-            public UniqueAttribute(string PropertyName)
+            public UniqueAttribute(string PropertyName,string FieldName)
             {
                 _propertyname = PropertyName;
+                _fieldname = FieldName;
+               
             }
 
             protected override ValidationResult IsValid(object value, ValidationContext validationcontext)
@@ -38,6 +53,11 @@ namespace MVCPractice
                 var source = context.Products;
                 var idName = _propertyname;
                 var idValue = value;
+
+                object instance = validationcontext.ObjectInstance;
+                Type type = instance.GetType();
+               PropertyInfo property = type.GetProperty(_fieldname);
+                object propertyValue = property.GetValue(instance);
 
                 var param = Expression.Parameter(typeof(Product));
                 var condition =
@@ -51,7 +71,7 @@ namespace MVCPractice
 
 
 
-                bool unique = source.Any(condition);
+                bool unique = context.Products.Any(condition) && !context.Products.Any(a => a.ProductID == (int)propertyValue);
                 if (unique)
                 {
                     var errormessage = FormatErrorMessage(validationcontext.DisplayName);
@@ -59,7 +79,9 @@ namespace MVCPractice
                 }
                 return ValidationResult.Success;
             }
+          
             private readonly string _propertyname;
+            private readonly string _fieldname;
         }
     }
 }

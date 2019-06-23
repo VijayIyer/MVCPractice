@@ -4,12 +4,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="Scripts/jquery-1.10.2.js"></script>
-<script src="Scripts/jquery-1.10.2.min.js"></script>
-<script src="Scripts/jquery-ui.js"></script>
-<script src="Scripts/jquery-ui.min.js"></script>
-<script src="Scripts/bootstrap.js"></script>
-<script src="Scripts/bootstrap.min.js"></script>
 
 <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -30,24 +24,32 @@
     var filterindex = 0;
     $(document).ready(function () {
         $(".partialcontents").each(function () {
-
-           
-            var  url =  $(this).attr("data-url");
+            var url = $(this).attr("data-url");
             var data = $(this).attr("data-name");
             url = url;
-           
-            
             $.ajax({
                 url: url,
-                data: { 'Id' : data },
+                data: {
+                    'Id': data,
+                   
+
+                },
                 type: "get",
                 success: function (data) {
+                    $(".partialcontents").first().siblings(".Loader").css('visibility', 'hidden');
                     $(".partialcontents").first().replaceWith(data);
                 }
+            });
+            $(document).ajaxStart(function () {
+               
+               // $(".partialcontents").siblings(".Loader").css('visibility', 'visible');
+            });
+            $(document).ajaxComplete(function () {
+              
+             //   $(".partialcontents").siblings(".Loader").css('visibility', 'hidden');
 
             });
         });
-
         $("#dialog").dialog({
             autoOpen: false,
             closeOnEscape: true,
@@ -78,8 +80,6 @@
             $("th:eq(" + filterindex + ")").data("filtervalue", $("#FirstBox").val());
             FilterAddressTable();
         });
-
-
         function FilterAddressTable() {
 
             $("#AddressTable tr").each(function () {
@@ -140,7 +140,6 @@
                 });
             });
         }
-
         $("#ClearFilter").click(function (e) {
 
             e.preventDefault();
@@ -169,15 +168,16 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td><div class="partialcontents" data-url="/ProductModels/Single" data-name="@item.ProductModelID" style="font-style:italic;visibility:hidden"></div></td>
+            <td>
+                <span class="partialcontents" data-url="/ProductModels/Single" data-name="@item.ProductModelID"></span>
+                <span style="font:italic" class="Loader">Loading......</span>
+            </td>
             <td>
                 @Html.ActionLink("Edit","Edit") |
                 @Html.ActionLink("Details", "Details") |
                 @Html.ActionLink("Delete", "Delete")
             </td>
-            
-           
-        </tr>
+          </tr>
     }
 </table>
 

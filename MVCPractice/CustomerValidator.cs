@@ -12,6 +12,7 @@ namespace MVCPractice
         {
             RuleFor(x => x.LastName).NotEqual(x => x.FirstName).WithMessage("Last Name should not be equal to first name");
             RuleFor(x => x.EmailAddress).Matches("^\\w+@\\w+.com$").WithName("Email");
+           
         }
     }
 }

@@ -13,9 +13,11 @@ namespace MVCPractice
     using System.Collections.Generic;
     using System.Linq;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
     using System.Linq.Expressions;
     using System.Reflection;
     using MVCPractice.Validations;
+    
     public partial class Product : IValidatableObject
     {
       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,14 +32,14 @@ namespace MVCPractice
         public int ProductID { get; set; }
         [StringLength(20)]
         [Required(ErrorMessage = "Please do not leave Product Name Empty")]
-        [CustomProductValidations("*")]
-        [RegularExpression("^[^@!*#()&]*$", ErrorMessage = "Entered Product Name not in correct format")]
+        [CustomProductValidations("*",ErrorMessage = "Custom check for special characters showed an unwanted character")]
+        [RegularExpression("^[^@!#()&]*$", ErrorMessage = "Entered Product Name not in correct format")]
         [Display(Name ="Product Name")]
-      // [Unique("Name",ErrorMessage ="The Product Name should be unique")]
+        [Unique("Name","ProductID",ErrorMessage ="The Product Name should be unique")]
         public string Name { get; set; }
         [Required(ErrorMessage ="Please do not leave Product Number Empty")]
         [RegularExpression("^[a-z|A-Z]{2}-[a-zA-Z]\\w{3}-\\d{2}", ErrorMessage ="Entered Product Number not in correct format")]
-        [Unique("ProductNumber",ErrorMessage ="Product Number should be unique")]
+        [Unique("ProductNumber","ProductID",ErrorMessage ="Product Number should be unique")]
         public string ProductNumber { get; set; }
         [DisplayFormat(NullDisplayText = "Multi")]
         public string Color { get; set; }

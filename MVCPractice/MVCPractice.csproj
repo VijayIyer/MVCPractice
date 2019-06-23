@@ -260,6 +260,7 @@
     <Content Include="Content\Edit.ico" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\wait.css" />
+    <Content Include="CustomCharChecker.js" />
     <Content Include="Experimental.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -360,7 +361,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1295/</IISUrl>
+          <IISUrl>http://localhost:9100/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
