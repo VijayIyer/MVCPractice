@@ -37,7 +37,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Color</label>
                 <div class="col-md-10">
-                <input list="color" value="@Model.Color"/>
+                <input list="color" name="color" value="@Model.Color" class="form-control"/>
                 
                  @Html.Datalist("color", ViewBag.Colors as SelectList)
             </div>

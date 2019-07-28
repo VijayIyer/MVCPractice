@@ -41,7 +41,7 @@ namespace MVCPractice
         [RegularExpression("^[a-z|A-Z]{2}-[a-zA-Z]\\w{3}-\\d{2}", ErrorMessage ="Entered Product Number not in correct format")]
         [Unique("ProductNumber","ProductID",ErrorMessage ="Product Number should be unique")]
         public string ProductNumber { get; set; }
-        [DisplayFormat(NullDisplayText = "Multi")]
+        [DisplayFormat(ConvertEmptyStringToNull =true,NullDisplayText = "&nbsp",HtmlEncode =false)]
         public string Color { get; set; }
         public decimal StandardCost { get; set; }
         public decimal ListPrice { get; set; }

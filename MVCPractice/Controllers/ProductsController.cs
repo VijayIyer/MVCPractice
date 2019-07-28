@@ -127,6 +127,8 @@ namespace MVCPractice.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
+            Product requiredproduct = new Product();
+            requiredproduct = context.Products.Find(Id);
             ViewBag.ProductCategoryId = new SelectList((from c in context.ProductCategories
                                                         where c.ParentProductCategoryID == null
                                                         select c).ToList()
@@ -135,10 +137,9 @@ namespace MVCPractice.Controllers
 
 
             ViewBag.ProductModelId = new SelectList(context.ProductModels.ToList(), "ProductModelId", "Name");
-            ViewBag.Colors = new SelectList(context.Products.Where(a => a.Color != null).Select(a => a.Color).Distinct().ToList());
+            ViewBag.Colors = new SelectList(context.Products.Where(a => a.Color != null).Select(a => a.Color).Distinct().ToList(),requiredproduct.Color);
 
-            Product requiredproduct = new Product();
-            requiredproduct = context.Products.Find(Id);
+            
             return View(requiredproduct);
         }
         [HttpPost]
