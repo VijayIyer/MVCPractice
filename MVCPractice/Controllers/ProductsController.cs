@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Linq.Dynamic;
 namespace MVCPractice.Controllers
 {
+    [MVCPractice.Filters.ActionSpeedProfiler]
     public class ProductsController : Controller
     {
         private AdventureWorksEntities context = new AdventureWorksEntities();
@@ -33,7 +34,7 @@ namespace MVCPractice.Controllers
             var search = string.IsNullOrEmpty(searchString) ? "" : searchString;
                 var Products = context.Products
                      .Include("ProductCategory")
-                      .Include("ProductModel").AsParallel<Product>()
+                      .Include("ProductModel")
                       .Where(s => s.Name.Contains(search));
             switch (sortOrder)
                 {
@@ -50,10 +51,10 @@ namespace MVCPractice.Controllers
                         Products = Products.OrderBy(s => s.Name);
                         break;
                 }
-            int pageNumber = (page ?? 1);
+            int pageNumber = page ?? 1;
             if (Request.IsAjaxRequest())
             {
-                return View("ProductsTable", Products.ToPagedList(pageNumber, pageSize));
+                return PartialView("ProductsTable", Products.ToPagedList(pageNumber, pageSize));
             }
             
             return View(Products.ToPagedList(pageNumber, pageSize));
@@ -147,8 +148,7 @@ namespace MVCPractice.Controllers
         {
 
             try {
-               
-                    var required = context.Products.Find(product.ProductID);
+                var required = context.Products.Find(product.ProductID);
                     UpdateModel(required);
                     context.SaveChanges();
                     return RedirectToAction("Index");

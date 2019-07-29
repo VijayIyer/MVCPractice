@@ -6,16 +6,24 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
    
-    @RenderSection("scripts", required: false)
+    <style type="text/css">
+        .message {
+           
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
    
-       
+   
+  
 </head>
 <body>
    
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/adventureworks")
-    @Scripts.Render("~/bundles/unobtrusive")
-    <script src="~/ColumnFilters.js"></script>
+    <div class="message">
+        this page took @ViewBag.TimeElapsed milliseconds
+    </div>
+    
      <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -41,7 +49,28 @@
     </div>
   
     <div class="container body-content">
-        @RenderBody()
+        <div class="signal"></div>
+           @RenderBody()
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/adventureworks")
+        @Scripts.Render("~/bundles/unobtrusive")
+        <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        @RenderSection("Scripts",false)
+       
+        <script>
+            $(document).ready(function () {
+
+                  $("#dialog").dialog({
+                      autoOpen: false,
+                      closeOnEscape: true,
+                      draggable: true,
+                      title: "Filter Box"
+                  });
+            });
+         </script>
+        <script src="~/ColumnFilters.js"></script>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>

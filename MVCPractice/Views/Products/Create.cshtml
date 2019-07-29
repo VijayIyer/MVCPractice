@@ -5,55 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-    <script>
-        $(document).ready(function () {
-            $('#ProductCategoryId').change(function () {
-                var SelectedProductCategory = $("#ProductCategoryId").val();
-                var SubCategory = $('#SubCategory');
-                SubCategory.empty();
-                if (SelectedProductCategory != null && SelectedProductCategory != '') {
-                    $.getJSON('@Url.Action("GetSubCategory")', { SelectedProductCategory: SelectedProductCategory }, function (regions) {
-                        if (regions != null && !jQuery.isEmptyObject(regions)) {
-                            SubCategory.append($('<option/>', {
-                                value: "",
-                                text: "Select Sub Category"
-                            }));
-                            $.each(regions, function (index, region) {
-                                SubCategory.append($('<option/>', {
-                                    value: region.Id,
-                                    text: region.Name
-                                }));
-                            });
-                        };
-                    });
-                };
-            });
-
-          
-
-
-        });
-         
-        var openFile = function (event) {
-            var input = event.target;
-
-            var reader = new FileReader();
-            reader.onloadend = function () {
-               
-                var output = document.getElementById('ThumbNailPhoto');
-                if (reader.result)
-                {
-                    output.value = reader.result;
-                }
-                
-            };
-            reader.readAsBinaryString(input.files[0]);
-
-           
-        };
-        
-    </script>
-    <script src="~/CustomCharChecker.js"></script>
+    
 
 </head>
 <h2>Create</h2>
@@ -228,4 +180,49 @@
 
 @section Scripts {
     @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script>
+        $(document).ready(function () {
+            $('#ProductCategoryId').change(function () {
+                var SelectedProductCategory = $("#ProductCategoryId").val();
+                var SubCategory = $('#SubCategory');
+                SubCategory.empty();
+                if (SelectedProductCategory != null && SelectedProductCategory != '') {
+                    $.getJSON('@Url.Action("GetSubCategory")', { SelectedProductCategory: SelectedProductCategory }, function (regions) {
+                        if (regions != null && !jQuery.isEmptyObject(regions)) {
+                            SubCategory.append($('<option/>', {
+                                value: "",
+                                text: "Select Sub Category"
+                            }));
+                            $.each(regions, function (index, region) {
+                                SubCategory.append($('<option/>', {
+                                    value: region.Id,
+                                    text: region.Name
+                                }));
+                            });
+                        };
+                    });
+                };
+            });
+        });
+        var openFile = function (event) {
+            var input = event.target;
+
+            var reader = new FileReader();
+            reader.onloadend = function () {
+
+                var output = document.getElementById('ThumbNailPhoto');
+                if (reader.result)
+                {
+                    output.value = reader.result;
+                }
+
+            };
+            reader.readAsBinaryString(input.files[0]);
+
+
+        };
+
+</script>
+    <script src="~/CustomCharChecker.js"></script>
+   
 }

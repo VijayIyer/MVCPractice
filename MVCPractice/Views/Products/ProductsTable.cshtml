@@ -2,58 +2,10 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-
     Layout = null;
-
 }
-  <script>
-      var filterindex = 0;
-      $(document).ready(function () {
-
-         
-         
-       $(".signal").css('visibility','hidden');
-          $(".pagination li:not(.active) a").click(function () {
-              
-              var options =
-                  {
-                      url: $(this).attr("href"),
-                      type: "GET"
-                  };
-              $.ajax(options).done(function (data) {
-                  $("#ProductsTable").html(data);
-              });
-              return false;
-          });
-          $(document).ajaxStart(function () {
-              $("#ProductsTable").css('visibility','hidden');
-              $(".signal").css('visibility','visible');
-          });
-          $(document).ajaxComplete(function () {
-              $("#ProductsTable").css('visibility','visible');
-              $(".signal").css('visibility', 'hidden');
-      
-          });
-
-
-          $("#dialog").dialog({
-                  autoOpen: false,
-                  closeOnEscape: true,
-                  draggable: true,
-                  title: "Filter Box"
-              });
-
-
-     });
-
-  </script>
-<link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<div class="signal"></div>
 <div id="ProductsTable">
-    <table class="table" id="AddressTable">
+    <table class="table">
         <tr>
             <th data-filterclause="" data-filtervalue="">
               <span>@Html.ActionLink("Name ", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter });</span>
@@ -92,7 +44,7 @@
             <th>
                 Model Name
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
 
         @foreach (var item in Model)
@@ -127,22 +79,27 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SellEndDate)
                     </td>
-
-                    <td>
+                     <td>
                         @Html.DisplayFor(modelItem => item.ProductCategory.Name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductModel.Name)
                     </td>
                     <td>
+                     <span>
+                         
                        
-                            <a href="@Url.Action("Edit", new { id = item.ProductID })">
-                                <img src="@Url.Content("~/Content/Edit.ico")" />
-                            </a>
-                        
-                        <button type="submit" value="Delete">
-                            <img src="@Url.Content("~/Content/Delete.ico")" />
-                        </button> 
+                            
+                                <a href="@Url.Action("Edit", new { id = item.ProductID })">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                            
+                       
+
+                            <button type="submit" value="Delete" data-toggle="tooltip" title="Delete">
+                            <span class="glyphicon glyphicon-trash"></span> 
+                            </button> 
+                        </span>   
                       @*<input type="submit" value="Delete" style="background:none; border-width:0px; color:blue; text-decoration:underline;" onclick="return confirm('Are you sure you want to delete Product with Id = @item.ProductID')" />*@
                     </td>
                 </tr>

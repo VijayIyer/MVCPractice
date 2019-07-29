@@ -4,13 +4,14 @@
 
 <style>
     span i.glyphicon.glyphicon-filter {
-        visibility: hidden;
+        visibility:hidden
     }
 
     span:hover i.glyphicon.glyphicon-filter {
-        visibility: visible !important;
+        visibility:visible!important
     }
 </style>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -52,10 +53,45 @@
         <button class="btn btn-primary" id="ClearFilter">Clear Filter</button>
     </div>
 </form>
-
 @{Html.RenderPartial("ProductsTable");}
 
 @section Scripts
        {
+  <script>
+
+      $(document).ready(function () {
+
+          $(document).on('click', '.pagination li:not(.active) a',function () {
+
+              var options =
+                  {
+                      url: $(this).attr("href"),
+                      type: "GET"
+                  };
+              $.ajax(options).done(function (data) {
+                  $("#ProductsTable").html(data);
+              });
+              return false;
+          });
+          $(document).ajaxStart(function () {
+              $("#ProductsTable").css('visibility', 'hidden');
+          });
+          $(document).ajaxComplete(function () {
+              $("#ProductsTable").css('visibility', 'visible');
+          });
+          $(".signal").css('visibility', 'hidden');
+          $(document).ajaxStart(function () {
+
+              $(".signal").css('visibility', 'visible');
+          });
+          $(document).ajaxComplete(function () {
+
+              $(".signal").css('visibility', 'hidden');
+
+          });
+
+      });
+
+</script>
        }
       

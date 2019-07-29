@@ -1,7 +1,7 @@
 ﻿var filterindex = 0;
 $(document).ready(function () {
    
-    $(".glyphicon-filter").click(function (e) {
+    $(document).on('click', '.table .glyphicon-filter', function (e) {
         filterindex = $(event.target).closest('th').index();
 
         $("#dialog #filterclause").val($("th:eq(" + filterindex + ")").data("filterclause"));
@@ -12,12 +12,12 @@ $(document).ready(function () {
         });
         $("#dialog").dialog("open");
     });
-    $("#close").click(function () {
+    $("#dialog").on('click','#close',function () {
 
         $("#dialog").dialog("close");
     });
 
-    $("#ApplyFilter").click(function (e) {
+    $("#dialog").on('click', '#ApplyFilter', function (e) {
 
         e.preventDefault();
 
@@ -25,16 +25,14 @@ $(document).ready(function () {
         $("th:eq(" + filterindex + ")").data("filtervalue", $("#FirstBox").val());
         FilterAddressTable();
     });
-
-
     function FilterAddressTable() {
 
-        $("#AddressTable tr").each(function () {
+        $(".table tr").each(function () {
 
             $(this).show();
         });
 
-        $("#AddressTable th").each(function () {
+        $(".table th").each(function () {
 
             var headerindex = $(this).index();
 
@@ -75,7 +73,7 @@ $(document).ready(function () {
                             else {
                                 $(this).hide();
                             } break;
-                        case "Not Equal to": if ($(this).find("td:eq(" + headerindex + ")").text() != $("th:eq(" + headerindex + ")").data("filtervalue")) {
+                        case "Not Equal to": if ($(this).find("td:eq(" + headerindex + ")").text() !== $("th:eq(" + headerindex + ")").data("filtervalue")) {
                             $(this).show();
                         }
                         else {
@@ -88,7 +86,7 @@ $(document).ready(function () {
         });
     }
 
-    $("#ClearFilter").click(function (e) {
+    $("#dialog").on('click', '#ClearFilter', function (e) {
 
         e.preventDefault();
 

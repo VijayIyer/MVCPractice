@@ -192,6 +192,7 @@
     <Compile Include="ErrorLog.cs">
       <DependentUpon>AdventureWorksEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\ActionSpeedProfilerAttribute.cs" />
     <Compile Include="GetCustomeAddressById_Result.cs">
       <DependentUpon>AdventureWorksEntities.tt</DependentUpon>
     </Compile>

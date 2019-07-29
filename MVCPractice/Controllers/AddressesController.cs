@@ -11,6 +11,7 @@ using MVCPractice;
 
 namespace MVCPractice.Controllers
 {
+    [MVCPractice.Filters.ActionSpeedProfiler]
     public class AddressesController : Controller
     {
         private AdventureWorksEntities db = new AdventureWorksEntities();

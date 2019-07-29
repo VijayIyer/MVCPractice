@@ -4,43 +4,6 @@
     ViewBag.Title = "Shared";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-<script>
-    var filterindex = 0;
-        $(document).ready(function ()
-        {
-            $("#dialog").dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                draggable: true,
-                title: "Filter Box"
-            });
-        var Options =
-        {
-            url: "/Addresses/" + "@ViewBag.ViewName",
-            type: "GET"
-        };
-            $.ajax(Options).done(function (data) {
-
-                $("#DynamicView").html(data);
-
-            });
-            $(document).ajaxStart(function () {
-                $("#ProductsTable").css('visibility', 'hidden');
-                $(".signal").css('visibility', 'visible');
-            });
-            $(document).ajaxComplete(function () {
-                $("#ProductsTable").css('visibility', 'visible');
-                $(".signal").css('visibility', 'hidden');
-            });
-          });
-    </script>
-
-<link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <style>
     span i.glyphicon.glyphicon-filter {
         visibility: hidden;
@@ -49,7 +12,7 @@
         visibility: visible !important;
     }
 </style>
-<div class="signal"></div>
+
 <form id="dialog" style="background-color:gainsboro" class="table-bordered">
     <select id="filterclause">
         <option selected>Equals</option>
@@ -69,8 +32,35 @@
         <button class="btn btn-primary" id="ClearFilter">Clear Filter</button>
     </div>
 </form>
+
 <div id="DynamicView">
 </div>
 
+@section Scripts{
+    <script>
+    var filterindex = 0;
+        $(document).ready(function ()
+        {
+          
+        var Options =
+        {
+            url: "/Addresses/" + "@ViewBag.ViewName",
+            type: "GET"
+        };
+            $.ajax(Options).done(function (data) {
 
+                $("#DynamicView").html(data);
+
+            });
+            $(document).ajaxStart(function () {
+               
+                $(".signal").css('visibility', 'visible');
+            });
+            $(document).ajaxComplete(function () {
+                
+                $(".signal").css('visibility', 'hidden');
+            });
+          });
+</script>
+    }
 
