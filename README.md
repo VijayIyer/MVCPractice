@@ -5,7 +5,11 @@
 * Ajax Request - for [paging and searching operations](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/ProductsTable.cshtml). These are also firing the Index Action method in ProductsController, but the request is Asynchronous with loading indicator in view till request is complete. This is accomplished through Ajax Helper class and jQuery script in Index View in Products.<br/><br/>
  * Fluent Validation - FluentValidationMVC is a library which makes it easy to create rules for the models. To accomplish this seperate class file is created for [Customer.cs - CustomerValidator](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/CustomerValidator.cs) . Few rules are created on Customer Model using Fluent Validation - checking format of emails , and checking that last name is not equal to first name. Here we see how easy it is to create complex validation rules.<br/><br/>
  * Created a Custom Html Helper - [CustomHelper](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/CustomHelpers/CustomHelpers.cs). Here , there is one helper method which creates a datalist for Color Property in Product Entity.<br/><br/>
- * For [Address Views], I have tried to implement a model similar to single page by * keeping a common view[] which will only consist of the Layout * Keeping a blank div where the page content will be loaded after ajax loading is complete.
+ * For [Address Views](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Addresses/Shared.cshtml), I have tried to implement a model similar to single page by 
+   * keeping a common view[https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Addresses/Shared.cshtml] which will only consist of the Layout 
+   * Keeping a blank div where the page content will be loaded after ajax loading is complete.
+   * a ViewBag property holds the name of the view and on click of edit or create link, this property is modified and then passed to the get request, which will bring the appropriate edit or create view and replace the content in the blank div.
+   * This way even though Address Table has a large number of records, the page is loaded first , then the respective view content is loaded. This gives the feel of a single page application.
  
 ### <br/>*Features planned -*
  * Unit Testing and Integration Testing projects.<br/>
