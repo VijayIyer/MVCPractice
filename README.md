@@ -13,6 +13,7 @@
  * **Widget like loading behaviour** -  [Here](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/ProductModels/Index.cshtml#L172) I am asynchronously loading contents inside ever table td one by one by -
    *  Keeping a span which sends ajax requests - this will return a [partial view](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/ProductModels/ProductModel.cshtml) which only consists of the content in that cell.In this case, for demonstration purposes only name is being loaded.The span also has data- attributes which hold the Url and the id to be sent as query string in the ajax request.
    * The model which is passed to the ProductModel.cshtml view is determined in [ProductModelController](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Controllers/ProductModelsController.cs#L25)
+   * This behaviour can be used if there are table elements having large data content, eg.- images.
  
  
 ### <br/>*Features planned -*
