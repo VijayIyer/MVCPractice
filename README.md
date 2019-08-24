@@ -7,8 +7,7 @@
  * A custom HTML Helper is created - [CustomHelper](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/CustomHelpers/CustomHelpers.cs). Here , there is one helper method which creates a datalist for Color Property in Product Entity.<br/><br/>
  
 ### <br/>*Features planned -*
- 1.Unit Testing and Integration Testing projects.<br/>
- 2.Adding Service Layer and Repository Layer.<br/>
- 3.Adding View Models for the various views when Controller is sufficiently complex. In products view , ViewBag is used.<br/>
- 4.Async Partial Views - if there is large data for single item , then load it partially quickly , then continue to load after full web page is loaded. For eg.  - in products list view , each product could be spinning widget, where thumbnail photo(not yet shown in view) could be loaded asynchronously), while all records are loaded.<br/>
- 5.Making all the Views for one of the Controllers Asynchronous by loading partial views into the Layout view - better User experience. <br/>
+ * Unit Testing and Integration Testing projects.<br/>
+ * Adding Service Layer and Repository Layer.<br/>
+ * Adding View Models for the various views when Controller is sufficiently complex. In products view , ViewBag is used.<br/>
+ * Making all the Views for one of the Controllers Asynchronous by loading partial views into the Layout view - better User experience. <br/>
