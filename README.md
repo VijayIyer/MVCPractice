@@ -1,5 +1,5 @@
 ### An MVC project with EF DB first. The DB was is an Azure SQL Database, created from Sample AdventureWorks Database.<br/><br/>*Features -*
- * [**CRUD Operations**](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Controllers/ProductsController.cs) - on few of the entities  - Index,Create,Edit views.<br/><br/>![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+ * [**CRUD Operations**](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Controllers/ProductsController.cs) - on few of the entities  - Index,Create,Edit views.<br/><br/>
  * [**Pagination**](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/Index.cshtml) - In Products Index view,Pagination  has been added using PagedListMVC library.Also search bar is added to search for a product entity by name.<br/><br/>
  * [**Custom DataAnnotation Validations**](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/ProductPartial.cs) have been added to the Products Model  - in ProductPartial.cs file.
    * One of them is to check whether input string does not contain the character '\*\'.For this validation, client side unobtrusive validation is also done by implementing the IClientValidatable interface and also adding a [seperate js file](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/CustomCharChecker.js) which registers the method in jQuery's unobtrusive validator. This will then make data- attributes appear for the property on which the custom attribute is decorated.
@@ -19,7 +19,7 @@
  * **Custom Filter on Table** - 
    * [Here](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/Index.cshtml) jQuery-UI is being used to create a dialog box which will act as a filter control. The logic for the filter is in a seperate [javascript file](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/ColumnFilters.js).The filter consists of 4 different clauses to filter the rows with  - Equals,Not equals,Contains,Not Contains. The filtering is then done based on this selection [using the value in the data- attribute](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/ColumnFilters.js#L49)
    * The same dialog box can be used for every column in the table. This is done by adding [filter icon and data- attributes](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/ProductsTable.cshtml#L10) to the th on which filter is required.These data attributes hold the values which are set in the filter, temporarily. 
-   * This filter behaviour can be achieved on any table in the application. As the control is a dialog box, it can be moved around on the screen and resized as well.
+   * This filter behaviour can be achieved on any table in the application. As the control is a dialog box, it can be moved around on the screen and resized as well.![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
  
 ### <br/>*Features planned -*
  * Unit Testing and Integration Testing projects.<br/>
