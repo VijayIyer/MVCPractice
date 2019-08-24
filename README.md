@@ -8,7 +8,7 @@
  * For [Address Views](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Addresses/Index.cshtml), I have tried to implement a model similar to single page by 
    * keeping a [common view](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Addresses/Shared.cshtml) which will only consist of the Layout 
    * Keeping a blank div where the page content will be loaded after ajax loading is complete.
-   * a ViewBag property holds the name of the view and on click of edit or create link, this property is modified and then passed to the get request, which will bring the appropriate edit or create view and replace the content in the blank div.
+   * a [ViewBag property](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Addresses/Shared.cshtml#L47) holds the name of the view and on click of edit or create link, this property is modified and then passed to the get request, which will bring the appropriate edit or create view and replace the content in the blank div.
    * This way even though Address Table has a large number of records, the page is loaded first , then the respective view content is loaded. This gives the feel of a single page application.
  
 ### <br/>*Features planned -*
