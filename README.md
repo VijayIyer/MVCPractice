@@ -19,7 +19,7 @@
  * **Custom Filter on Table** - 
    * [Here](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/Index.cshtml) jQuery-UI is being used to create a dialog box which will act as a filter control. The logic for the filter is in a seperate [javascript file](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/ColumnFilters.js).The filter consists of 4 different clauses to filter the rows with  - Equals,Not equals,Contains,Not Contains. The filtering is then done based on this selection [using the value in the data- attribute](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/ColumnFilters.js#L49)
    * The same dialog box can be used for every column in the table. This is done by adding [filter icon and data- attributes](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/Products/ProductsTable.cshtml#L10) to the th on which filter is required.These data attributes hold the values which are set in the filter, temporarily. 
-   * This filter behaviour can be achieved on any table in the application. As the control is a dialog box, it can be moved around on the screen as well.
+   * This filter behaviour can be achieved on any table in the application. As the control is a dialog box, it can be moved around on the screen and resized as well.
  
 ### <br/>*Features planned -*
  * Unit Testing and Integration Testing projects.<br/>
