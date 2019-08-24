@@ -12,6 +12,8 @@
    * This way even though Address Table has a large number of records, the page is loaded first , then the respective view content is loaded. This gives the feel of a single page application.
  * **Widget like loading behaviour** -  [Here](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/ProductModels/Index.cshtml#L172) I am asynchronously loading contents inside ever table td one by one by -
    *  Keeping a span which sends ajax requests - this will return a [partial view](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Views/ProductModels/ProductModel.cshtml) which only consists of the content in that cell.In this case, for demonstration purposes only name is being loaded.
+   * The model which is passed to the ProductModel.cshtml view is determined in [ProductModelController](https://github.com/VijayIyer/MVCPractice/blob/master/MVCPractice/Controllers/ProductModelsController.cs#L25)
+ 
  
 ### <br/>*Features planned -*
  * Unit Testing and Integration Testing projects.<br/>
