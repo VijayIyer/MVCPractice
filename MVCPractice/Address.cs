@@ -23,6 +23,9 @@ namespace MVCPractice
             this.CustomerAddresses = new HashSet<CustomerAddress>();
             this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
             this.SalesOrderHeaders1 = new HashSet<SalesOrderHeader>();
+            this.ModifiedDate = System.DateTime.Now;
+           
+            this.rowguid = Guid.NewGuid();
         }
         
         public int AddressID { get; set; }

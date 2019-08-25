@@ -20,9 +20,9 @@
 </head>
 <body>
    
-    <div class="message">
+    @*<div class="message">
         this page took @ViewBag.TimeElapsed milliseconds
-    </div>
+    </div>*@
     
      <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -41,7 +41,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Products", "Index", "Products")/li>
                     <li>@Html.ActionLink("Customers", "Index", "Customers")/li>
-                    <li>@Html.ActionLink("Addresses", "Shared", "Addresses")/li>
+                    <li>@Html.ActionLink("Addresses", "Index", "Addresses")/li>
                     <li>@Html.ActionLink("ProductModels", "Index", "ProductModels")/li>
 </ul>
             </div>
@@ -49,7 +49,7 @@
     </div>
   
     <div class="container body-content">
-        <div class="signal"></div>
+       
            @RenderBody()
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/adventureworks")

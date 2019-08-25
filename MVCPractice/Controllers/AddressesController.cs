@@ -17,6 +17,7 @@ namespace MVCPractice.Controllers
         private AdventureWorksEntities db = new AdventureWorksEntities();
 
         // GET: Addresses
+        [OutputCache(Duration = 200, Location = System.Web.UI.OutputCacheLocation.Client)]
         public async Task<ActionResult> Index()
         {
             return PartialView(await db.Addresses.ToListAsync());

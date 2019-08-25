@@ -15,77 +15,29 @@
     <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script>
+        angular.module('app',[]).controller('AddressList',['$scope',function($scope){
+        
+            $scope.model = [
+        { "name": "Alfreds Futterkiste","age":20 },
+        { "name": "Berglunds snabbköp","age":25 },
+        { "name": "Centro comercial Moctezuma","age":30 },
+        { "name": "Ernst Handel","age":35 },
+            ];
+        }]);
+    </script>
 </head>
 <body>
-    <style>
-        span i.glyphicon.glyphicon-filter {
-            visibility: hidden;
-        }
+    <table ng-app="app" ng-controller="AddressList">
+        <tr ng-repeat="x in model">
+            <td>{{x.name}}</td>
+            <td>{{x.age}}</td>
+        </tr>
 
-        span:hover i.glyphicon.glyphicon-filter {
-            visibility: visible !important;
-        }
-    </style>
-    <script src="ColumnFilters.js"></script>
-    <form id="dialog" style="background-color:gainsboro" class="table-bordered">
-        <select id="filterclause">
-            <option selected>Equals</option>
-            <option>Contains</option>
-            <option>Does not Contain</option>
-            <option>Not Equal to</option>
-        </select>
-        <div>
-            <label for="FirstBox">Field 1</label>
-            <input id="FirstBox" />
-        </div>
-     
-                <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-            
-        <div>
-           <button class="btn btn-primary" id="ApplyFilter">Apply Filter</button>
-            <button class="btn btn-primary" id="ClearFilter">Clear Filter</button>
-        </div>
-    </form>
-     <div class="container">
-        <h2>Basic Table</h2>
-        <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-        <table class="table table-bordered" id="AddressTable">
-            <thead>
-                <tr>
-                    <th data-filterclause="" data-filtervalue=""><span>Firstname</span>
-                        <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-                    <!--<span><i class="material-icons">filter_list</i></span>-->
-                    </th>
-                    <th data-filterclause="" data-filtervalue=""><span>Lastname</span>
-                        <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-                    </th>
-                    <th data-filterclause="" data-filtervalue="">
-                        <span>Email</span>
-                        <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                </tr>
-                <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    </table>
+    
 
 </body>
 </html>

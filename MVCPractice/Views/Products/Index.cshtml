@@ -53,7 +53,11 @@
         <button class="btn btn-primary" id="ClearFilter">Clear Filter</button>
     </div>
 </form>
-@{Html.RenderPartial("ProductsTable");}
+<div>
+    <div class="signal" style="visibility:hidden"></div>
+    @{Html.RenderPartial("ProductsTable");}
+</div>
+
 
 @section Scripts
        {
@@ -68,27 +72,21 @@
                       url: $(this).attr("href"),
                       type: "GET"
                   };
-              $.ajax(options).done(function (data) {
+              $.ajax(options)
+                  .success(function (data) {
                   $("#ProductsTable").html(data);
-              });
+                  $("#ProductsTable").css('visibility', 'visible');
+                  $(".signal").css('visibility', 'hidden');
+              }).error();
               return false;
           });
           $(document).ajaxStart(function () {
               $("#ProductsTable").css('visibility', 'hidden');
-          });
-          $(document).ajaxComplete(function () {
-              $("#ProductsTable").css('visibility', 'visible');
-          });
-          $(".signal").css('visibility', 'hidden');
-          $(document).ajaxStart(function () {
-
               $(".signal").css('visibility', 'visible');
           });
-          $(document).ajaxComplete(function () {
-
-              $(".signal").css('visibility', 'hidden');
-
-          });
+         
+     
+        
 
       });
 

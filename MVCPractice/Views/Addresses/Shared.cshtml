@@ -34,33 +34,34 @@
 </form>
 
 <div id="DynamicView">
+    <div class="signal" style="visibility:hidden"></div>
 </div>
 
 @section Scripts{
     <script>
     var filterindex = 0;
-        $(document).ready(function ()
-        {
-          
+    $(document).ready(function () {
+
         var Options =
         {
             url: "/Addresses/" + "@ViewBag.ViewName",
             type: "GET"
         };
-            $.ajax(Options).done(function (data) {
+        $.ajax(Options).done(function (data) {
 
-                $("#DynamicView").html(data);
+            $("#DynamicView").html(data);
 
-            });
-            $(document).ajaxStart(function () {
-               
+        });
+
+        $.ajaxSetup({
+            'beforeSend': function () {
                 $(".signal").css('visibility', 'visible');
-            });
-            $(document).ajaxComplete(function () {
-                
+            },
+            'complete': function () {
                 $(".signal").css('visibility', 'hidden');
-            });
-          });
+            }
+        })
+    });
 </script>
     }
 

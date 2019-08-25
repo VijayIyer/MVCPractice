@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<MVCPractice.Address>
 
-<script src="~/ColumnFilters.js"></script>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New","Create")
 </p>
 <div id="CreateView">
-<table class="table" id="AddressTable">
+<table class="table" id="AddressTable" ng-app="app" ng-controller="AddressList">
     <tr>
         <th data-filterclause="" data-filtervalue="">
             <span>  @Html.DisplayNameFor(model => model.AddressLine1)</span>
             <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
         </th>
-        <th data-filterclause="" data-filtervalue="">
+        @*<th data-filterclause="" data-filtervalue="">
             <span> @Html.DisplayNameFor(model => model.AddressLine2)</span>
             <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
         </th>
@@ -36,15 +40,15 @@
         <th>
             @Html.DisplayNameFor(model => model.ModifiedDate)
         </th>
-        <th></th>
+        <th></th>*@
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+
+    <tr ng-repeat="item in model" ng-init="model='@Model'">
         <td>
-            @Html.DisplayFor(modelItem => item.AddressLine1)
+           <span>{{item.AddressLine1}}</span>
         </td>
-        <td>
+        @*@<td>
             @Html.DisplayFor(modelItem => item.AddressLine2)
         </td>
         <td>
@@ -66,12 +70,26 @@
             @Html.DisplayFor(modelItem => item.ModifiedDate)
         </td>
         <td>
-            @Ajax.ActionLink("Edit", "Edit", new { id=item.AddressID },new AjaxOptions {UpdateTargetId = "DynamicView",InsertionMode = InsertionMode.ReplaceWith}) |
+          @Html.ActionLink("Edit","Edit",new { id = item.AddressID})|
+            @Html.ActionLink("Details", "Details", new { id = item.AddressID })|
+            @Html.ActionLink("Delete", "Delete", new { id = item.AddressID })|
+              @Ajax.ActionLink("Edit", "Edit", new { id=item.AddressID },new AjaxOptions {UpdateTargetId = "DynamicView",InsertionMode = InsertionMode.ReplaceWith}) |
             @Ajax.ActionLink("Details", "Details", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith } ) |
             @Ajax.ActionLink("Delete", "Delete", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith })
-        </td>
+        </td>*@
     </tr>
-}
+
 
 </table>
 </div>
+@section Scripts{
+    
+    <script>
+        angular.module('app', []).controller('AddressList', ['$scope', function ($scope) {
+
+            $scope.model = '';
+
+        }]);
+    </script>
+    
+    }

@@ -7,83 +7,79 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Addresses", new { id = @Model.AddressID },FormMethod.Post,new { @name="EditAddress", @ng_app = "app", @novalidate="novalidate"}))
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal"  ng-controller="address">
         <h4>Address</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AddressID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" ng-class="{ 'has-error' : EditAddress.AddressLine1.$touched && EditAddress.AddressLine1.$error.required }">
+            <label for="AddressLine1" class="control-label col-md-2">AddressLine1</label>
+           
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+              <input class="form-control" name="AddressLine1" id="AddressLine1" ng-model="addressline1" ng-init="addressline1='@Model.AddressLine1'" required/>
+                 <span class="text-danger" ng-show="EditAddress.AddressLine1.$error.required && EditAddress.AddressLine1.$touched">AddressLine1 is a required field</span>
+              
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" ng-class="{'has-error': EditAddress.AddressLine2.$error.required && EditAddress.AddressLine2.$touched}">
+            <label for="AddressLine2" class="control-label col-md-2">AddressLine2</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
+                <input name="AddressLine2" id="AddressLine2" class="form-control" ng-model="addressline2" ng-init="addressline2='@Model.AddressLine2'" required/>
+                 <span class="text-danger" ng-show="EditAddress.AddressLine2.$error.required && EditAddress.AddressLine2.$touched">AddressLine1 is a required field</span>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" ng-class="{ 'has-error' : EditAddress.City.$touched && EditAddress.City.$error.required }">
+            <label for="City" class="control-label col-md-2">City</label>
+
             <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                <input class="form-control" name="City" id="City" ng-model="city" ng-init="city='@Model.City'" required />
+                <span class="text-danger" ng-show="EditAddress.City.$error.required && EditAddress.City.$touched">City is a required field</span>
+
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StateProvince, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" ng-class="{ 'has-error' : EditAddress.StateProvince.$touched && EditAddress.StateProvince.$error.required }">
+            <label for="StateProvince" class="control-label col-md-2">StateProvince</label>
+
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StateProvince, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StateProvince, "", new { @class = "text-danger" })
+                <input class="form-control" name="StateProvince" id="StateProvince" ng-model="state" ng-init="state='@Model.StateProvince'" required />
+                <span class="text-danger" ng-show="EditAddress.StateProvince.$error.required && EditAddress.StateProvince.$touched">StateProvince is a required field</span>
+
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CountryRegion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" ng-class="{ 'has-error' : EditAddress.CountryRegion.$touched && EditAddress.CountryRegion.$error.required }">
+            <label for="Country" class="control-label col-md-2">Country</label>
+
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CountryRegion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CountryRegion, "", new { @class = "text-danger" })
+                <input class="form-control" name="CountryRegion" id="CountryRegion" ng-model="country" ng-init="country='@Model.CountryRegion'" ng-change="SetRegexPattern()" required />
+                <span class="text-danger" ng-show="EditAddress.CountryRegion.$error.required && EditAddress.CountryRegion.$touched">Country is a required field</span>
+
+            </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : EditAddress.PostalCode.$touched && (EditAddress.PostalCode.$error.required||EditAddress.PostalCode.$error.pattern) }">
+            <label for="Country" class="control-label col-md-2">PostalCde</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="PostalCode" id="PostalCode" ng-model="postalcode" ng-init="postalcode='@Model.PostalCode';pattern='^\\d{5}$'" required ng-pattern="pattern" />
+                <span class="text-danger" ng-show="EditAddress.PostalCode.$error.required && EditAddress.PostalCode.$touched">PostalCode is a required field</span>
+                <span class="text-danger" ng-show="EditAddress.PostalCode.$error.pattern && EditAddress.PostalCode.$touched">PostalCode pattern is incorrect for country - {{country}}</span>
+
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.rowguid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.rowguid, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.rowguid, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" ng-class="{'disabled':EditAddress.$invalid}" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -92,3 +88,34 @@
 <div>
     @Html.ActionLink("Back to List", "Shared")
 </div>
+@section Scripts{
+    
+    <script>
+        angular.module('app', [])
+        .controller('address',['$scope',function ($scope) {
+
+            $scope.addressline1 = '';
+            $scope.addressline2 = '';
+            $scope.city = '';
+            $scope.state = '';
+            $scope.country = '';
+            $scope.postalcode = '';
+            $scope.pattern = '';
+            $scope.SetRegexPattern = function () {
+                if ($scope.country == 'USA') {
+                    $scope.pattern = '^\\d{5}$';
+                }
+                else if ($scope.country == 'Canada') {
+                    $scope.pattern = '^\\d{3}$';
+                }
+                else {
+                    $scope.pattern = '^\\d+$';
+                }
+                
+            };
+
+        }]);
+    </script>
+    
+    
+    }
