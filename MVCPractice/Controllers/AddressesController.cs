@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVCPractice;
+using Newtonsoft.Json;
 
 namespace MVCPractice.Controllers
 {
@@ -17,11 +18,26 @@ namespace MVCPractice.Controllers
         private AdventureWorksEntities db = new AdventureWorksEntities();
 
         // GET: Addresses
-        [OutputCache(Duration = 200, Location = System.Web.UI.OutputCacheLocation.Client)]
-        public async Task<ActionResult> Index()
+       
+
+        public ActionResult Index()
         {
-            return PartialView(await db.Addresses.ToListAsync());
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+            return View();
+
         }
+
+        public JsonResult GetAddresses()
+        {
+            var Addresses = db.Addresses.ToList().Select(x => new Address
+            {
+                AddressID = x.AddressID,
+                AddressLine1 = x.AddressLine1,
+                AddressLine2 = x.AddressLine2
+            });
+            return Json(Addresses,JsonRequestBehavior.AllowGet);
+       }
         public ActionResult Shared(string ViewName)
         {
             if (string.IsNullOrEmpty(ViewName))
