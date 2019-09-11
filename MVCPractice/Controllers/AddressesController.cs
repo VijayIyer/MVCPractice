@@ -19,7 +19,12 @@ namespace MVCPractice.Controllers
         // GET: Addresses
         public async Task<ActionResult> Index()
         {
-            return PartialView(await db.Addresses.ToListAsync());
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(await db.Addresses.ToListAsync());
+            }
+            return View(await db.Addresses.ToListAsync());
+
         }
         public ActionResult Shared(string ViewName)
         {

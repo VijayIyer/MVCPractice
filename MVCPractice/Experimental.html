@@ -3,20 +3,24 @@
 <head>
     <title></title>
 	<meta charset="utf-8" />
-    
-  
-    
-    <script src="Scripts/jquery-1.10.2.js"></script>
+     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery-ui.js"></script>
     <script src="Scripts/jquery-ui.min.js"></script>
     <script src="Scripts/bootstrap.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
     <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+    <script>
+        angular.module('myApp', []).controller('myController', function ($scope) {
 
+            $scope.input1;
+
+        });
+    </script>
 </head>
 <body>
     <style>
@@ -86,6 +90,16 @@
             </tbody>
         </table>
     </div>
-
+    <form name="myform" ng-app="myApp" >
+        <div ng-controller="myController" class="form-group">
+          <input type="text" ng-minlength="8" name="field1" ng-maxlength="20" class="form-control" ng-class="'has-error'" ng-init="input1='Value'" ng-model="input1" required/>
+             <span class="text-danger" ng-show="myform.field1.$error.minlength">MinLength requirement not satisfied</span>
+            <span class="text-danger" ng-show="myform.field1.$error.required">Field1 is required</span>
+            <button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">Submit</button>
+        </div>
+            
+     
+        
+    </form>
 </body>
 </html>

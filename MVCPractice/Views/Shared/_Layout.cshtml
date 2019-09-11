@@ -41,7 +41,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Products", "Index", "Products")/li>
                     <li>@Html.ActionLink("Customers", "Index", "Customers")/li>
-                    <li>@Html.ActionLink("Addresses", "Shared", "Addresses")/li>
+                    <li>@Html.ActionLink("Addresses", "Index", "Addresses")/li>
                     <li>@Html.ActionLink("ProductModels", "Index", "ProductModels")/li>
 </ul>
             </div>
@@ -68,8 +68,10 @@
                       draggable: true,
                       title: "Filter Box"
                   });
+                  $(".signal").css("visibility", "hidden");
             });
          </script>
+        
         <script src="~/ColumnFilters.js"></script>
         <hr />
         <footer>

@@ -16,8 +16,9 @@ namespace MVCPractice
                                "~/Scripts/jquery.validate*",
                                 "~/Scripts/jquery.unobtrusive-ajax.js",
                                 "~/Scripts/bootstrap.js",
-                                "~/Scripts/bootstrap.min.js"
-                                ));
+                                "~/Scripts/bootstrap.min.js",
+                                "~/Scripts/angular.js",
+                                 "~/Scripts/angular.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
                                "~/Scripts/jquery.unobtrusive-ajax*",
                                "~/Scripts/jquery.unobtrusive-ajax*"

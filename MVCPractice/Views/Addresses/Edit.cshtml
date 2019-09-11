@@ -7,88 +7,128 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit","Address",FormMethod.Post,new { name = "myForm", id = "myForm" ,@ng_app="address"}))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Address</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AddressID)
+     <div>
+        <div class="form-horizontal">
+          <div ng-controller="rulesController">
+              <h4>Address</h4>
+              <hr />
+              @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              @Html.HiddenFor(model => model.AddressID)
+            <div class="form-group" ng-class="{'has-error':myForm.AddressLine1.$error.required && myForm.AddressLine1.$touched&&submitted}">
+                  <label for="AddressLine1" class="control-label col-md-2">AddressLine1</label>
+                   <div class="col-md-10">
+                        <input type="text" class="form-control" id="AddressLine1" name="AddressLine1" ng-init="addressline1='@Model.AddressLine1'" required ng-model="addressline1" />
+                        <span class="text-danger help-block" ng-if="myForm.AddressLine1.$error.required && myForm.AddressLine1.$touched&&submitted">AddressLine1 is required</span>
+                      
+                  </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
-            </div>
-        </div>
+              <div class="form-group" ng-class="{'has-error':myForm.AddressLine2.$error['required']&&submitted}">
+                
+                 <label for="AddressLine2" class="control-label col-md-2">AddressLine2</label>
+                   <div class="col-md-10">
+                   
+                     <input type="text" class="form-control" ng-init="addressline2='@Model.AddressLine2'" id="AddressLine2" name="AddressLine2" ng-model="addressline2"/>    
+                     <span class="text-danger help-block" ng-if="myForm.AddressLine2.$error.required&&submitted">AddressLine2 is required</span>
+                      
+                    </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
-            </div>
-        </div>
+              <div class="form-group" ng-class="{'has-error':myForm.City.$error.required&&myForm.City.$touched&&submitted}">
+                 <label for="City" class="control-label col-md-2">City</label>
+                  <div class="col-md-10">
+                   
+                     <input type="text" name="City" id="City" ng-model="city" ng-if="city='@Model.City'" required class="form-control"/>
+                      <span class="text-danger help-block" ng-if="myForm.City.$error.required&&myForm.City.$touched&&submitted">City is a required field</span>
+                  </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-            </div>
-        </div>
+              <div class="form-group" ng-class="{'has-error':myForm.StateProvince.$error.required&&submitted}">
+                 
+                 <label for="StateProvince" class="control-label col-md-2">StateProvince</label>
+                   <div class="col-md-10">
+                      
+                     <input type="text" class="form-control" name="StateProvince" id="StateProvince" ng-init="state='@Model.StateProvince'" ng-model="state" required />
+                      <span class="text-danger help-block" ng-if="myForm.StateProvince.$error.required&&myForm.StateProvince.$touched&&submitted">State is a required field</span>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StateProvince, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StateProvince, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StateProvince, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                  </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CountryRegion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CountryRegion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CountryRegion, "", new { @class = "text-danger" })
-            </div>
-        </div>
+              <div class="form-group" ng-class="{'has-error':myForm.CountryRegion.$error.required&&submitted}">
+                 <label for="CountryRegion" class="control-label col-md-2">Country</label>
+                  <div class="col-md-10">
+                  
+                     <input type="text" id="CountryRegion" class="form-control" name="CountryRegion" ng-init="country='@Model.CountryRegion'" ng-model="country" required ng-change="SetRegexPattern()" />
+                      <span class="text-danger help-block" ng-if="myForm.CountryRegion.$error.required&&submitted">Country is a required field</span>
+                  </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
+              <div class="form-group" ng-class="{'has-error':(myForm.PostalCode.$error.required||myForm.PostalCode.$error.pattern)&&submitted}">
+                 <label for="PostalCode" class="control-label col-md-2">PostalCode</label>
+                  <div class="col-md-10">
+                    
+                     <input type="text" class="form-control" name="PostalCode" id="PostalCode" ng-init="postalcode='@Model.PostalCode'" ng-model="postalcode" required ng-pattern="pattern" />
+                      <span class="text-danger" ng-if="myForm.PostalCode.$error.required&&submitted">PostalCode is a required field</span>
+                      <span class="text-danger" ng-if="myForm.PostalCode.$error.pattern&&submitted">PostalCode not matching required pattern</span>
+                  </div>
+              </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.rowguid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.rowguid, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.rowguid, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+             <div class="form-group">
+                  <div class="col-md-offset-2 col-md-10">
+                      <input type="submit" value="Save" ng-disabled="myForm.$invalid&&submitted" @*ng-class="myForm.$invalid?'disabled':''"*@ ng-click="submit()" class="btn btn-default"/>
+                      <label for="ValidationMessagesCheckbox">Show Validations Only on Submission?</label>
+                      <input type="checkbox" id="ValidationMessagesCheckbox" ng-model="submitted" ng-true-value="false" ng-false-value="true" ng-init="submitted=false"/>
+                  </div>
+              </div>
+          </div>
+           
+          
         </div>
     </div>
+   
 }
 
 <div>
     @Html.ActionLink("Back to List", "Shared")
 </div>
+
+    @section Scripts {
+
+    <script>
+    angular.module('address', []).controller('rulesController', function ($scope) {
+           $scope.postalcode = '';
+           $scope.addressline1 = '';
+           $scope.addressline2 = '';
+           $scope.city = '';
+           $scope.state = '';
+           $scope.country = '';
+           $scope.pattern = '';
+           
+           $scope.submit = function () {
+               $scope.submitted = true;
+               SetRegexPattern();
+           }
+           $scope.SetRegexPattern = function () {
+
+               if ($scope.country == 'United States') {
+                   $scope.pattern = new RegExp("^\\d{5}$");
+               }
+               else if ($scope.country == 'Canada') {
+                   $scope.pattern = new RegExp("^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$");
+
+               }
+               else {
+                   $scope.pattern = new RegExp("^\\d+$");
+               }
+             
+           }
+       });
+    </script>
+
+    }
+   
+    
+ 

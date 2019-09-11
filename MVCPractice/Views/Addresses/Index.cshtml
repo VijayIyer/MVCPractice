@@ -66,12 +66,17 @@
             @Html.DisplayFor(modelItem => item.ModifiedDate)
         </td>
         <td>
-            @Ajax.ActionLink("Edit", "Edit", new { id=item.AddressID },new AjaxOptions {UpdateTargetId = "DynamicView",InsertionMode = InsertionMode.ReplaceWith}) |
+            @*@Ajax.ActionLink("Edit", "Edit", new { id=item.AddressID },new AjaxOptions {UpdateTargetId = "DynamicView",InsertionMode = InsertionMode.ReplaceWith,OnComplete="LoadAngular()" }) |
             @Ajax.ActionLink("Details", "Details", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith } ) |
-            @Ajax.ActionLink("Delete", "Delete", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith })
-        </td>
+            @Ajax.ActionLink("Delete", "Delete", new { id=item.AddressID }, new AjaxOptions { UpdateTargetId = "DynamicView", InsertionMode = InsertionMode.ReplaceWith })*@
+            @Html.ActionLink("Edit", "Edit",new { id = item.AddressID});
+            @Html.ActionLink("Details", "Details", new { id = item.AddressID });
+            @Html.ActionLink("Delete", "Delete", new { id = item.AddressID });
+           </td>
     </tr>
 }
 
 </table>
+  
 </div>
+
