@@ -262,11 +262,13 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\wait.css" />
     <Content Include="CustomCharChecker.js" />
-    <Content Include="Experimental.html" />
+    <Content Include="Experimental\Experimental.html" />
+    <Content Include="Experimental\Addresses\Index.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -311,7 +313,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <None Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
@@ -323,7 +325,7 @@
     <Content Include="Views\Addresses\Delete.cshtml" />
     <Content Include="Views\Addresses\Details.cshtml" />
     <Content Include="Views\Addresses\Edit.cshtml" />
-    <Content Include="Views\Addresses\Index.cshtml" />
+    <Content Include="Views\Addresses\Index.html" />
     <Content Include="Views\Addresses\CreateView.cshtml" />
     <Content Include="Views\Products\ProductsTable.cshtml" />
     <Content Include="Views\Customers\CustomersTable.cshtml" />
@@ -331,6 +333,7 @@
     <Content Include="Views\View.cshtml" />
     <Content Include="Views\ProductModels\Index.cshtml" />
     <Content Include="Views\ProductModels\ProductModel.cshtml" />
+    <Content Include="Views\Addresses\MainView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

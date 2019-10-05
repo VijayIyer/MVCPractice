@@ -18,7 +18,8 @@ namespace MVCPractice
                                 "~/Scripts/bootstrap.js",
                                 "~/Scripts/bootstrap.min.js",
                                 "~/Scripts/angular.js",
-                                "~/Scripts/angular.min.js"));
+                                "~/Scripts/angular.min.js",
+                                "~/Scripts/angular-route.js"));
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
                                "~/Scripts/jquery.unobtrusive-ajax*",
                                "~/Scripts/jquery.unobtrusive-ajax*"

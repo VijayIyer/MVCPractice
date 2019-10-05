@@ -17,8 +17,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="Scripts/angular.js"></script>
     <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
     <script>
-        angular.module('app',[]).controller('AddressList',['$scope',function($scope){
+        //var app= angular.module('app',['ngRoute']);
+        app.controller('AddressList',['$scope',function($scope){
         
             $scope.model = [
         { "name": "Alfreds Futterkiste","age":20 },
@@ -27,17 +29,42 @@
         { "name": "Ernst Handel","age":35 },
             ];
         }]);
+        //app.config(function ($routeProvider) {
+        //    $routeProvider
+        //    .when("/", {
+        //        template: "This is default route"
+                
+        //    })
+        //    .when("/red", {
+        //        template: "This is red route"
+               
+        //    })
+        //    .when("/green", {
+        //        template: "green.htm"
+        //    })
+        //    .when("/blue", {
+        //        template: "blue.htm"
+        //    });
+        //});
+
+           
     </script>
 </head>
 <body>
-    <table ng-app="app" ng-controller="AddressList">
+    <!--<table ng-app="app" ng-controller="AddressList">
         <tr ng-repeat="x in model">
             <td>{{x.name}}</td>
             <td>{{x.age}}</td>
         </tr>
 
-    </table>
-    
-
+    </table>-->
+  <div>
+      <div>This is experimental view</div>
+      <div ng-view></div>
+      <a href="#!red">Computers</a>
+      <a href="#!green">Printers</a>
+      <a href="#!">Otherwise</a>
+  </div>
+   
 </body>
 </html>

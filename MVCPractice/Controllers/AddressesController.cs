@@ -18,7 +18,14 @@ namespace MVCPractice.Controllers
         private AdventureWorksEntities db = new AdventureWorksEntities();
 
         // GET: Addresses
-       
+
+        public ActionResult MainView()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+            return View();
+
+        }
 
         public ActionResult Index()
         {
@@ -34,7 +41,9 @@ namespace MVCPractice.Controllers
             {
                 AddressID = x.AddressID,
                 AddressLine1 = x.AddressLine1,
-                AddressLine2 = x.AddressLine2
+                City= x.City,
+                StateProvince = x.StateProvince,
+                CountryRegion = x.CountryRegion 
             });
             return Json(Addresses,JsonRequestBehavior.AllowGet);
        }
@@ -122,6 +131,10 @@ namespace MVCPractice.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(address).State = EntityState.Modified;
+                if (Request.IsAjaxRequest())
+                {
+                    return RedirectToAction("Index");
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

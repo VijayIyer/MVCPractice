@@ -69,10 +69,10 @@
         <dd>
             @Html.DisplayFor(model => model.ModifiedDate)
         </dd>
-
+        
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Shared", new { ViewName = "Edit/"+Model.AddressID.ToString() }) |
-    @Html.ActionLink("Back to List", "Shared")
+    @Html.ActionLink("Edit", "Edit",new { id = Model.AddressID } ) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

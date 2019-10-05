@@ -1,0 +1,53 @@
+﻿
+
+<h2>Index</h2>
+
+<p>
+    <a ng-href="/Addresses/Create">Create New</a>
+</p>
+
+<table class="table" id="AddressTable">
+    <tr>
+        <th data-filterclause="" data-filtervalue="">
+            <span>AddressLine1</span>
+            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
+        </th>
+        <th data-filterclause="" data-filtervalue="">
+            <span>City</span>
+            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
+        </th>
+        <th data-filterclause="" data-filtervalue="">
+           <span>State</span> 
+            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
+        </th>
+        <th>
+            <span>Country</span>
+            <span style="float:right"><i class="glyphicon glyphicon-filter"></i></span>
+        </th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="item in model">
+        <td>
+            <span>{{item.AddressLine1}}</span>
+        </td>
+        <td>
+            <span>{{item.City}}</span>
+        </td>
+        <td>
+            <span>{{item.StateProvince}}</span>
+        </td>
+        <td>
+            <span>{{item.CountryRegion}}</span>
+        </td>
+        <td>
+            <a ng-href="/Addresses/Edit/{{item.AddressID}}">Edit</a>|
+            <a ng-href="/Addresses/Delete/{{item.AddressID}}">Delete</a>|
+            <a ng-href="/Addresses/Details/{{item.AddressID}}">Details</a>
+           
+            
+        </td>
+     
+    </tr>
+</table>
+
+

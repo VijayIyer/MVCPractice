@@ -7,15 +7,15 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Addresses", new { id = @Model.AddressID },FormMethod.Post,new { @name="EditAddress", @ng_app = "app", @novalidate="novalidate"}))
+@using (Html.BeginForm("Edit", "Addresses", new { id = @Model.AddressID },FormMethod.Post,new { @name="EditAddress", @ng_app = "app", @novalidate="novalidate", @ng_class="{'disabled':EditAddress.$invalid}"}))
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal"  ng-controller="address">
+    <div class="form-horizontal"    ng-controller="address">
         <h4>Address</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AddressID)
+        @Html.HiddenFor(model => model.AddressID,new { @ng_init = "'@Model.AddressID'" ,@ng_model="addressid"})
 
         <div class="form-group" ng-class="{ 'has-error' : EditAddress.AddressLine1.$touched && EditAddress.AddressLine1.$error.required }">
             <label for="AddressLine1" class="control-label col-md-2">AddressLine1</label>
@@ -74,26 +74,26 @@
 
             </div>
         </div>
-
-       
-
-        <div class="form-group">
+         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" ng-class="{'disabled':EditAddress.$invalid}" class="btn btn-default" />
+                <input type="submit" value="Save"  ng-class="{'disabled':EditAddress.$invalid}" class="btn btn-default" />
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-default" ng-click="SaveForm()">Submit</button>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Shared")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 @section Scripts{
     
     <script>
         angular.module('app', [])
-        .controller('address',['$scope',function ($scope) {
-
+        .controller('address',['$scope','$http',function ($scope,$http) {
+            $scope.addressid = '';
             $scope.addressline1 = '';
             $scope.addressline2 = '';
             $scope.city = '';
@@ -113,7 +113,18 @@
                 }
                 
             };
-
+            $scope.SaveForm = function () {
+                var data = {
+                    addressid:$scope.addressid,
+                    addressline1: $scope.addressline1,
+                    addressline2: $scope.addressline2,
+                    city: $scope.city,
+                    state: $scope.state,
+                    postalcode: $scope.postalcode,
+                    country: $scope.country
+                }
+                $http.post('/Addresses/Edit',JSON.stringify(data))
+            }
         }]);
     </script>
     

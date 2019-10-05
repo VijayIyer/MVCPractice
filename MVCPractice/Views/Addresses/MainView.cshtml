@@ -1,0 +1,51 @@
+﻿
+@*@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+<div ng-app="app">
+     <div ng-view>
+    </div>
+</div>
+
+@section Scripts{
+ 
+    <script>
+       var app=angular.module('app',['ngRoute']);
+      
+        app.config(function ($routeProvider,$locationProvider) {
+            $routeProvider
+            .when("/", {
+                templateUrl: "Experimental/Addresses/Index.html",
+                controller: "AddressList"
+            })
+            .when("/Addresses/Edit", {
+                template: "Edit.cshtml"
+
+            })
+            .when("/green", {
+                template: "green.htm"
+            })
+            .when("/blue", {
+                template: "blue.htm"
+            });
+            //$locationProvider.html5Mode(true);
+        });
+      
+</script>
+   <script>
+   angular.module('app')
+    .controller('AddressList', ['$scope', '$http', function ($scope, $http) {
+
+        $scope.model = [];
+        $http.get('/Addresses/GetAddresses').then(function (response) {
+            if (response != null || response != "undefined") {
+                $scope.model = response.data;
+            }
+        });
+
+    }]);
+</script>
+
+}
