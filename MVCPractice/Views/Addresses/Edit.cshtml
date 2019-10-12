@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal"    ng-controller="address">
+    <div class="form-horizontal"    ng-controller="EditAddress">
         <h4>Address</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -93,6 +93,13 @@
     <script>
         angular.module('app', [])
         .controller('address',['$scope','$http',function ($scope,$http) {
+
+            $http.get('/Addresses/Edit/').then(function (response) {
+                if (response != null || response != "undefined") {
+                    $scope.model = response.data;
+                }
+            });
+
             $scope.addressid = '';
             $scope.addressline1 = '';
             $scope.addressline2 = '';

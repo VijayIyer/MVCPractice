@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
     
   
-    
+   
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery-ui.js"></script>
@@ -19,37 +19,39 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.js"></script>
     <script>
-        //var app= angular.module('app',['ngRoute']);
-        app.controller('AddressList',['$scope',function($scope){
-        
-            $scope.model = [
-        { "name": "Alfreds Futterkiste","age":20 },
-        { "name": "Berglunds snabbköp","age":25 },
-        { "name": "Centro comercial Moctezuma","age":30 },
-        { "name": "Ernst Handel","age":35 },
-            ];
-        }]);
-        //app.config(function ($routeProvider) {
-        //    $routeProvider
-        //    .when("/", {
-        //        template: "This is default route"
-                
-        //    })
-        //    .when("/red", {
-        //        template: "This is red route"
-               
-        //    })
-        //    .when("/green", {
-        //        template: "green.htm"
-        //    })
-        //    .when("/blue", {
-        //        template: "blue.htm"
-        //    });
-        //});
+        var app = angular.module('app',['ngRoute']);
+        //app.controller('AddressList',['$scope',function($scope){
 
-           
+        //    $scope.model = [
+        //{ "name": "Alfreds Futterkiste","age":20 },
+        //{ "name": "Berglunds snabbköp","age":25 },
+        //{ "name": "Centro comercial Moctezuma","age":30 },
+        //{ "name": "Ernst Handel","age":35 },
+        //    ];
+        //}]);
+        app.config(function ($routeProvider,$locationProvider) {
+         //   $locationProvider.html5mode(true);
+            $routeProvider
+            .when("/", {
+                template: "<h1>This is default route<h1>"
+
+            })
+            .when("/red", {
+                template: "<h1>This is red route<h1>"
+
+            })
+            .when("/green", {
+                template: "green.htm"
+            })
+            .when("/blue", {
+                template: "blue.htm"
+            });
+        });
+
+
     </script>
 </head>
+
 <body>
     <!--<table ng-app="app" ng-controller="AddressList">
         <tr ng-repeat="x in model">
@@ -65,6 +67,6 @@
       <a href="#!green">Printers</a>
       <a href="#!">Otherwise</a>
   </div>
-   
+  
 </body>
 </html>

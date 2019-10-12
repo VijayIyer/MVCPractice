@@ -12,15 +12,13 @@ namespace MVCPractice
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("Addresses/Index");
-            routes.IgnoreRoute("Addresses/Details");
-            routes.IgnoreRoute("Addresses/Delete");
+          //  routes.IgnoreRoute("Addresses/Edit/");
 
-            routes.MapRoute(
-               name: "MainView",
-               url: "Addresses/MainView",
-               defaults: new { controller = "Addresses", action = "MainView", id = UrlParameter.Optional }
-           );
+           // routes.MapRoute(
+           //    name: "MainView",
+           //    url: "Addresses/MainView",
+           //    defaults: new { controller = "Addresses", action = "MainView", id = UrlParameter.Optional }
+           //);
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

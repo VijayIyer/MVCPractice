@@ -1,8 +1,8 @@
 ﻿
-@*@{
+@{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+}
 
 <div ng-app="app">
      <div ng-view>
@@ -14,38 +14,123 @@
     <script>
        var app=angular.module('app',['ngRoute']);
       
-        app.config(function ($routeProvider,$locationProvider) {
-            $routeProvider
-            .when("/", {
-                templateUrl: "Experimental/Addresses/Index.html",
-                controller: "AddressList"
-            })
-            .when("/Addresses/Edit", {
-                template: "Edit.cshtml"
+       app.config(function ($routeProvider,$locationProvider) {
+           $locationProvider.html5Mode(true);
+           $routeProvider
+           .when("/", {
+               templateUrl: "Experimental/Addresses/Index.html",
+               controller: "AddressList"
+           }).when("/Addresses/MainView", {
+               templateUrl: "Experimental/Addresses/Index.html",
+               controller: "AddressList"
+           })
+               .when("/Addresses/Index", {
+                   templateUrl: "Experimental/Addresses/Index.html",
+                   controller: "AddressList"
+               })
 
-            })
-            .when("/green", {
-                template: "green.htm"
-            })
-            .when("/blue", {
-                template: "blue.htm"
-            });
-            //$locationProvider.html5Mode(true);
+           .when("/Addresses/Edit/:id", {
+               templateUrl: "Experimental/Addresses/Edit.html",
+               controller: "EditAddress"
+           })
+           .when("/Addresses/Details/:id", {
+               templateUrl: "Experimental/Addresses/Details.html",
+               controller: "EditAddress"
+           }).when("/Addresses/Create", {
+               templateUrl: "Experimental/Addresses/Create.html",
+               controller: "CreateAddress"
+           });
+          
         });
-      
-</script>
-   <script>
-   angular.module('app')
-    .controller('AddressList', ['$scope', '$http', function ($scope, $http) {
+       app.controller('AddressList', ['$scope', '$http', function ($scope, $http) {
 
-        $scope.model = [];
-        $http.get('/Addresses/GetAddresses').then(function (response) {
-            if (response != null || response != "undefined") {
-                $scope.model = response.data;
-            }
-        });
+           $scope.model = [];
+           $http.get('/Addresses/GetAddresses').then(function (response) {
+               
+                   $scope.model = response.data;
+             
+           });
+           $scope.removeAddress = function (index) {
+               var addressid = $scope.model[index].id
+               $http.post("/Addresses/Delete/" + addressid).then(function (index)
+               {
+                   $scope.model.splice(index, 1);
+               }, function () { });
+           }
 
-    }]);
+       }]).controller('EditAddress', ['$scope', '$http','$routeParams','$location', function ($scope, $http,$routeParams,$location) {
+          
+           $http.get('/Addresses/GetAddressDetails/'+$routeParams.id).then(function (response) {
+               
+                   $scope.model = response.data;
+               
+           });
+           $scope.pattern = '';
+           $scope.SetRegexPattern = function () {
+               if ($scope.model.CountryRegion == 'USA') {
+                   $scope.pattern = '^\\d{5}$';
+               }
+               else if ($scope.model.CountryRegion == 'Canada') {
+                   $scope.pattern = '^\\d{3}$';
+               }
+               else {
+                   $scope.pattern = '^\\d+$';
+               }
+
+           };
+           $scope.SaveForm = function () {
+               var data = {
+                   addressid: $scope.model.AddressID,
+                   addressline1: $scope.model.AddressLine1,
+                   addressline2: $scope.model.AddressLine2,
+                   city: $scope.model.City,
+                   stateprovince: $scope.model.StateProvince,
+                   postalcode: $scope.model.PostalCode,
+                   countryregion: $scope.model.CountryRegion
+               }
+               $http.post('/Addresses/Edit', data).then(function () {
+
+                   $location.path('/Addresses/Index');
+
+               },
+               function () {
+               });
+           }
+       }])
+       .controller('CreateAddress', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+           $scope.pattern = '';
+           $scope.SetRegexPattern = function () {
+               if ($scope.model.CountryRegion == 'USA') {
+                   $scope.pattern = '^\\d{5}$';
+               }
+               else if ($scope.model.CountryRegion == 'Canada') {
+                   $scope.pattern = '^\\d{3}$';
+               }
+               else {
+                   $scope.pattern = '^\\d+$';
+               }
+
+           };
+           $scope.SaveForm = function () {
+               var data = {
+                   addressid: $scope.model.AddressID,
+                   addressline1: $scope.model.AddressLine1,
+                   addressline2: $scope.model.AddressLine2,
+                   city: $scope.model.City,
+                   stateprovince: $scope.model.StateProvince,
+                   postalcode: $scope.model.PostalCode,
+                   countryregion: $scope.model.CountryRegion
+               }
+               $http.post('/Addresses/Create', data).then(function () {
+
+                   $location.path('/Addresses/Index');
+
+               },
+               function () {
+               });
+           }
+       }]);
 </script>
+
 
 }

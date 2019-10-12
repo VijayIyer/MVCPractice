@@ -1,0 +1,62 @@
+﻿
+
+<h2>Details</h2>
+
+<div ng-controller="EditAddress">
+    <h4>Address</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            AddressLine1
+        </dt>
+
+        <dd>
+           {{model.AddressLine1}}
+        </dd>
+
+        <dt>
+            AddressLine2
+        </dt>
+
+        <dd>
+           {{model.AddressLine2}}
+        </dd>
+
+        <dt>
+           City
+        </dt>
+
+        <dd>
+           {{model.City}}
+        </dd>
+
+        <dt>
+           State
+        </dt>
+
+        <dd>
+            {{model.StateProvince}}
+        </dd>
+
+        <dt>
+           Country
+        </dt>
+
+        <dd>
+           {{model.CountryRegion}}
+        </dd>
+
+        <dt>
+           PostalCode
+        </dt>
+
+        <dd>
+           {{model.PostalCode}}
+        </dd>
+ </dl>
+</div>
+<p>
+    <a ng-href="/Addresses/Edit/{{model.AddressID}}">Edit Address</a>
+     |
+   <a ng-href="/Addresses/Index">Back to List</a>
+</p>

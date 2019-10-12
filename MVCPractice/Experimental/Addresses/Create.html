@@ -1,0 +1,90 @@
+﻿@model MVCPractice.Address
+
+@*
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+*@
+
+<h2>Create</h2>
+
+
+<form method="post" name="CreateAddress" novalidate ng-class="{'disabled':CreateAddress.$invalid}" id="CreateAddress">
+    <div class="form-horizontal" ng-controller="CreateAddress">
+        <h4>Address</h4>
+        <hr />
+        <!--@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AddressID,new { @ng_init = "'@Model.AddressID'" ,@ng_model="addressid"})-->
+        <input hidden ng-model="model.AddressID" />
+
+        <div class="form-group" ng-class="{ 'has-error' : CreateAddress.AddressLine1.$touched && CreateAddress.AddressLine1.$error.required }">
+            <label for="AddressLine1" class="control-label col-md-2">AddressLine1</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="AddressLine1" id="AddressLine1" ng-model="model.AddressLine1" required />
+                <span class="text-danger" ng-show="CreateAddress.AddressLine1.$error.required && CreateAddress.AddressLine1.$touched">AddressLine1 is a required field</span>
+
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': CreateAddress.AddressLine2.$error.required && CreateAddress.AddressLine2.$touched}">
+            <label for="AddressLine2" class="control-label col-md-2">AddressLine2</label>
+            <div class="col-md-10">
+                <input name="AddressLine2" id="AddressLine2" class="form-control" ng-model="model.AddressLine2" required />
+                <span class="text-danger" ng-show="CreateAddress.AddressLine2.$error.required && CreateAddress.AddressLine2.$touched">AddressLine1 is a required field</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : CreateAddress.City.$touched && CreateAddress.City.$error.required }">
+            <label for="City" class="control-label col-md-2">City</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="City" id="City" ng-model="model.City" required />
+                <span class="text-danger" ng-show="CreateAddress.City.$error.required && CreateAddress.City.$touched">City is a required field</span>
+
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : CreateAddress.StateProvince.$touched && CreateAddress.StateProvince.$error.required }">
+            <label for="StateProvince" class="control-label col-md-2">StateProvince</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="StateProvince" id="StateProvince" ng-model="model.StateProvince" required />
+                <span class="text-danger" ng-show="CreateAddress.StateProvince.$error.required && CreateAddress.StateProvince.$touched">StateProvince is a required field</span>
+
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : CreateAddress.CountryRegion.$touched && CreateAddress.CountryRegion.$error.required }">
+            <label for="Country" class="control-label col-md-2">Country</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="CountryRegion" id="CountryRegion" ng-model="model.CountryRegion" ng-change="SetRegexPattern()" required />
+                <span class="text-danger" ng-show="CreateAddress.CountryRegion.$error.required && CreateAddress.CountryRegion.$touched">Country is a required field</span>
+
+            </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : CreateAddress.PostalCode.$touched && (CreateAddress.PostalCode.$error.required||CreateAddress.PostalCode.$error.pattern) }">
+            <label for="Country" class="control-label col-md-2">PostalCde</label>
+
+            <div class="col-md-10">
+                <input class="form-control" name="PostalCode" id="PostalCode" ng-model="model.PostalCode" ng-init="pattern='^\\d{5}$'" required ng-pattern="pattern" />
+                <span class="text-danger" ng-show="CreateAddress.PostalCode.$error.required && CreateAddress.PostalCode.$touched">PostalCode is a required field</span>
+                <span class="text-danger" ng-show="CreateAddress.PostalCode.$error.pattern && CreateAddress.PostalCode.$touched">PostalCode pattern is incorrect for country - {{model.CountryRegion}}</span>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" ng-click="SaveForm()" value="Save" ng-class="{'disabled':CreateAddress.$invalid}" class="btn btn-default" />
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <a ng-href="/Addresses/Index">Back To List</a>
+</div>
