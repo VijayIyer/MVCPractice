@@ -5,16 +5,37 @@
 }
 
 <div ng-app="app">
-     <div ng-view>
+   <h1 my-tooltip>Hover over this and see tooltip</h1>
+      <div ng-view>
     </div>
 </div>
 
 @section Scripts{
  
     <script>
-       var app=angular.module('app',['ngRoute']);
-      
-       app.config(function ($routeProvider,$locationProvider) {
+        var app = angular.module('app', ['ngRoute']);
+        app.directive('myTooltip', function ()
+        {
+            return {
+                restrict: 'A',
+                template: 'ng-show="open" ng-mouseover="open = false"'
+            };
+        });
+       app.service('patternService', function () {
+           this.SetRegexPattern = function (country) {
+               if (country == 'USA') {
+                   return '^\\d{5}(?:-\\d{4})?$';
+               }
+               else if (country == 'Canada') {
+                   return '^(?:[ABCEGHJ-NPRSTVXY]\\d[A-Z][ -]?\\d[A-Z]\\d)$';
+               }
+               else {
+                   return '^\\d{5}$';
+               }
+           }
+
+       });
+       app.config(function ($routeProvider, $locationProvider) {
            $locationProvider.html5Mode(true);
            $routeProvider
            .when("/", {
@@ -51,33 +72,25 @@
              
            });
            $scope.removeAddress = function (index) {
-               var addressid = $scope.model[index].id
+               var addressid = $scope.model[index].AddressID;
                $http.post("/Addresses/Delete/" + addressid).then(function (index)
                {
                    $scope.model.splice(index, 1);
                }, function () { });
            }
 
-       }]).controller('EditAddress', ['$scope', '$http','$routeParams','$location', function ($scope, $http,$routeParams,$location) {
+       }]).controller('EditAddress', ['$scope', '$http','$routeParams','$location','patternService', function ($scope, $http,$routeParams,$location,patternService) {
           
            $http.get('/Addresses/GetAddressDetails/'+$routeParams.id).then(function (response) {
                
                    $scope.model = response.data;
                
            });
-           $scope.pattern = '';
-           $scope.SetRegexPattern = function () {
-               if ($scope.model.CountryRegion == 'USA') {
-                   $scope.pattern = '^\\d{5}$';
-               }
-               else if ($scope.model.CountryRegion == 'Canada') {
-                   $scope.pattern = '^\\d{3}$';
-               }
-               else {
-                   $scope.pattern = '^\\d+$';
-               }
+          
+           $scope.SetRegexPattern = function (country) {
 
-           };
+              $scope.pattern = patternService.SetRegexPattern(country);
+           }
            $scope.SaveForm = function () {
                var data = {
                    addressid: $scope.model.AddressID,
@@ -97,20 +110,12 @@
                });
            }
        }])
-       .controller('CreateAddress', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-           $scope.pattern = '';
-           $scope.SetRegexPattern = function () {
-               if ($scope.model.CountryRegion == 'USA') {
-                   $scope.pattern = '^\\d{5}$';
-               }
-               else if ($scope.model.CountryRegion == 'Canada') {
-                   $scope.pattern = '^\\d{3}$';
-               }
-               else {
-                   $scope.pattern = '^\\d+$';
-               }
+       .controller('CreateAddress', ['$scope', '$http', '$routeParams', '$location','patternService', function ($scope, $http, $routeParams, $location,patternService) {
+          
+           $scope.SetRegexPattern = function (country) {
 
-           };
+               $scope.pattern = patternService.SetRegexPattern(country);
+           }
            $scope.SaveForm = function () {
                var data = {
                    addressid: $scope.model.AddressID,

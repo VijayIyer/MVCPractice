@@ -29,7 +29,7 @@
     <tr ng-repeat="item in model">
         <td>
             <span>{{item.AddressLine1}}</span>
-        </td>
+           </td>
         <td>
             <span>{{item.City}}</span>
         </td>
@@ -42,7 +42,7 @@
         <td>
           
             <a ng-href="/Addresses/Edit/{{item.AddressID}}">Edit</a>|
-            <a ng-href="/Addresses/Delete/{{item.AddressID}}">Delete</a>|
+            <a ng-click=removeAddress($index)>Delete</a>|
             <a ng-href="/Addresses/Details/{{item.AddressID}}">Details</a>
           </td>
 

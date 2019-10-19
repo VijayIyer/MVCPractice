@@ -60,7 +60,7 @@
             <label for="Country" class="control-label col-md-2">Country</label>
 
             <div class="col-md-10">
-                <input class="form-control" name="CountryRegion" id="CountryRegion" ng-model="model.CountryRegion" ng-change="SetRegexPattern()" required />
+                <input class="form-control" name="CountryRegion" id="CountryRegion" ng-model="model.CountryRegion" ng-change="SetRegexPattern(model.CountryRegion)" required />
                 <span class="text-danger" ng-show="CreateAddress.CountryRegion.$error.required && CreateAddress.CountryRegion.$touched">Country is a required field</span>
 
             </div>
@@ -69,7 +69,7 @@
             <label for="Country" class="control-label col-md-2">PostalCde</label>
 
             <div class="col-md-10">
-                <input class="form-control" name="PostalCode" id="PostalCode" ng-model="model.PostalCode" ng-init="pattern='^\\d{5}$'" required ng-pattern="pattern" />
+                <input class="form-control" name="PostalCode" id="PostalCode" ng-model="model.PostalCode" required ng-pattern="pattern" />
                 <span class="text-danger" ng-show="CreateAddress.PostalCode.$error.required && CreateAddress.PostalCode.$touched">PostalCode is a required field</span>
                 <span class="text-danger" ng-show="CreateAddress.PostalCode.$error.pattern && CreateAddress.PostalCode.$touched">PostalCode pattern is incorrect for country - {{model.CountryRegion}}</span>
 

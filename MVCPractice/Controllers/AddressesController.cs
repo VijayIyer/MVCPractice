@@ -196,7 +196,9 @@ namespace MVCPractice.Controllers
             try
             {
                 Address address = db.Addresses.Find(id);
+                List<CustomerAddress> customeraddresses = db.CustomerAddresses.Where(a => a.AddressID == id).ToList();
                 db.Addresses.Remove(address);
+                db.CustomerAddresses.RemoveRange(customeraddresses);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Address "+address.AddressID+" Deleted Successfully" });
             }
